@@ -1,4 +1,4 @@
--- --------------------------------------------------------
+temazapatillasparametrostema_parametros-- --------------------------------------------------------
 -- Host:                         127.0.0.1
 -- Versión del servidor:         8.4.3 - MySQL Community Server - GPL
 -- SO del servidor:              Win64
