@@ -65,6 +65,24 @@ public class VentanaListaZapatillas extends JPanel {
         modelo.setRowCount(0);
 
         for (Zapatilla z : lista) {
+        	
+        	JButton botonEliminar = new JButton("Eliminar");
+        	botonEliminar.addActionListener(new ActionListener() {
+        		
+        		public void actionPerformed(ActionEvent e) {
+        			
+        			int idZapatilla = z.getId();
+        			boolean eliminado = controlador.eliminarZapatilla(idZapatilla);
+        			if (eliminado) {
+        				JOptionPane.showMessageDialog(null, "Zapatilla eliminada correctamente");
+        				cargarZapatillas();
+        			} else {
+        				JOptionPane.showMessageDialog(null, "Error al eliminar la zapatilla");
+        			}
+        		}
+        		
+        	});
+        	
             modelo.addRow(new Object[]{
                 z.getId(),
                 z.getIdColor(),
@@ -72,8 +90,10 @@ public class VentanaListaZapatillas extends JPanel {
                 z.getIdGenero(),
                 z.getIdTipo(),
                 z.getIdMarca(),
-                z.getFoto()
+                z.getFoto(),
+                botonEliminar
             });
         }
+        ButtonColumn.setButtonColumn(tabla, 7);
     }
 }
