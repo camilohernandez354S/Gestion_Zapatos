@@ -1,4 +1,9 @@
 /persistencia/
+<<<<<<< HEAD
 /controlador/
 /mundo/
 /interfaz/
+=======
+/interfaz/
+/mundo/
+>>>>>>> feature/ELIMINAR
