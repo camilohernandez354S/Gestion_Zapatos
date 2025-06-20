@@ -16,6 +16,7 @@ public class VentanaInsertarZapatilla extends JPanel {
     private ControladorZapatillas controlador;
     private JComboBox<Parametro> comboColor, comboTalla, comboGenero, comboTipo, comboMarca;
     private JTextField txtFoto;
+    private Zapatilla zapatillaActual = null;
 
     private int idColor = 1, idTalla = 2, idGenero = 3, idTipo = 4, idMarca = 5;
 
@@ -112,13 +113,52 @@ public class VentanaInsertarZapatilla extends JPanel {
             return;
         }
 
-        Zapatilla z = new Zapatilla(0, color.getId(), talla.getId(), genero.getId(), tipo.getId(), marca.getId(), foto);
-        boolean exito = controlador.insertarZapatilla(z);
+        Zapatilla z = new Zapatilla(
+            zapatillaActual != null ? zapatillaActual.getId() : 0,
+            color.getId(),
+            talla.getId(),
+            genero.getId(),
+            tipo.getId(),
+            marca.getId(),
+            foto
+        );
+
+        boolean exito;
+        if (zapatillaActual != null) {
+            exito = controlador.actualizarZapatilla(z); // debe existir este método
+        } else {
+            exito = controlador.insertarZapatilla(z);
+        }
 
         if (exito) {
-            JOptionPane.showMessageDialog(this, "✅ Zapatilla registrada correctamente.");
+            JOptionPane.showMessageDialog(this, "✅ Zapatilla guardada correctamente.");
         } else {
-            JOptionPane.showMessageDialog(this, "❌ Error al registrar la zapatilla.");
+            JOptionPane.showMessageDialog(this, "❌ Error al guardar la zapatilla.");
+        }
+
+        zapatillaActual = null; // limpiar al guardar
+    }
+
+    
+    public void cargarZapatilla(Zapatilla z) {
+        this.zapatillaActual = z;
+        txtFoto.setText(z.getFoto());
+        seleccionarEnCombo(comboColor, z.getIdColor());
+        seleccionarEnCombo(comboTalla, z.getIdTalla());
+        seleccionarEnCombo(comboGenero, z.getIdGenero());
+        seleccionarEnCombo(comboTipo, z.getIdTipo());
+        seleccionarEnCombo(comboMarca, z.getIdMarca());
+    }
+
+
+    private void seleccionarEnCombo(JComboBox<Parametro> combo, int id) {
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            Parametro p = combo.getItemAt(i);
+            if (p.getId() == id) {
+                combo.setSelectedIndex(i);
+                break;
+            }
         }
     }
+
 }

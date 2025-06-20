@@ -113,4 +113,38 @@ public class ZapatillaDAO {
     
     }
     
+    /**
+     * Actualiza una zapatilla existente en la base de datos.
+     *
+     * @param z Objeto Zapatilla con los datos actualizados.
+     * @return true si la actualización fue exitosa, false si ocurrió un error.
+     */
+    public static boolean actualizarZapatilla(Zapatilla z) {
+        String sql = """
+            UPDATE zapatillas
+            SET id_color = ?, id_talla = ?, id_genero = ?, id_tipo = ?, id_marca = ?, Foto = ?
+            WHERE id = ?
+        """;
+
+        try (
+            Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, z.getIdColor());
+            stmt.setInt(2, z.getIdTalla());
+            stmt.setInt(3, z.getIdGenero());
+            stmt.setInt(4, z.getIdTipo());
+            stmt.setInt(5, z.getIdMarca());
+            stmt.setString(6, z.getFoto());
+            stmt.setInt(7, z.getId());
+
+            int filas = stmt.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error al actualizar zapatilla: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }

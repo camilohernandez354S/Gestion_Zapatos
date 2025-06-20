@@ -20,6 +20,7 @@ public class VentanaListaZapatillas extends JPanel {
 
     public VentanaListaZapatillas() {
         controlador = new ControladorZapatillas();
+        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla();
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -29,11 +30,11 @@ public class VentanaListaZapatillas extends JPanel {
         titulo.setForeground(new Color(33, 150, 243));
         add(titulo, BorderLayout.NORTH);
 
-        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto", "Acciones"};
+        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar" , "Editar"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 7; 
+                return column == 7 || column == 8; 
             }
         };
 
@@ -63,8 +64,12 @@ public class VentanaListaZapatillas extends JPanel {
         });
 
         
-        tabla.getColumn("Acciones").setCellRenderer(new BotonEliminar(controlador, tabla));
-        tabla.getColumn("Acciones").setCellEditor(new BotonEliminar(controlador, tabla));
+        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controlador, tabla));
+        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controlador, tabla));
+        
+        tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controlador, tabla, formulario));
+        tabla.getColumn("Editar").setCellEditor(new BotonEditar(controlador, tabla, formulario));
+
 
         cargarZapatillas();
     }
@@ -83,7 +88,8 @@ public class VentanaListaZapatillas extends JPanel {
                     z.getIdTipo(),
                     z.getIdMarca(),
                     z.getFoto(),
-                    "Eliminar" 
+                    "Eliminar",
+                    "Editar"
             });
         }
     }
