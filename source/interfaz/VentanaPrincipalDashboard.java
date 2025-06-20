@@ -12,11 +12,12 @@ public class VentanaPrincipalDashboard extends JFrame {
 	private static final long serialVersionUID = 1L;
 
     private JPanel panelCentral;
+    private VentanaListaZapatillas panelLista;
 
     public VentanaPrincipalDashboard() {
         setTitle("Gestión de Zapatillas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(1000, 1200);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -49,6 +50,11 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral = new JPanel();
         panelCentral.setLayout(new BorderLayout());
         panelCentral.setBackground(Color.WHITE);
+        
+        
+        panelLista = new VentanaListaZapatillas();
+        
+        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(panelLista);
 
         // Acciones de los botones
         btnRegistrar.addActionListener(e -> mostrarRegistrar());
@@ -84,7 +90,9 @@ public class VentanaPrincipalDashboard extends JFrame {
      */
     private void mostrarRegistrar() {
         panelCentral.removeAll();
-        panelCentral.add(new VentanaInsertarZapatilla(), BorderLayout.CENTER);
+        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(panelLista);
+        formulario.prepararParaAgregar(); // limpia el formulario
+        panelCentral.add(formulario, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();
     }
@@ -94,7 +102,8 @@ public class VentanaPrincipalDashboard extends JFrame {
      */
     private void mostrarLista() {
         panelCentral.removeAll();
-        panelCentral.add(new VentanaListaZapatillas(), BorderLayout.CENTER);
+        panelLista.cargarZapatillas(); // 🔁 recargar por si hubo cambios
+        panelCentral.add(panelLista, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();
     }

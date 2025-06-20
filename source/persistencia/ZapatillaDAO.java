@@ -39,7 +39,7 @@ public class ZapatillaDAO {
             int filas = stmt.executeUpdate();
 
             return filas > 0;
-
+            
         } catch (SQLException e) {
             System.out.println(" Error al insertar zapatilla: " + e.getMessage());
             return false;
@@ -80,4 +80,71 @@ public class ZapatillaDAO {
 
         return lista;
     }
+    
+    
+    /**
+     * Elimina una zapatilla de la base de datos según su ID.
+     * <p>
+     * Ejecuta una sentencia SQL DELETE en la tabla 'zapatillas' para eliminar
+     * el registro correspondiente al ID proporcionado.
+     * </p>
+     *
+     * @param id El ID de la zapatilla que se desea eliminar.
+     * @return true si la eliminación fue exitosa (al menos una fila afectada), false si no se eliminó ninguna fila o ocurrió un error.
+     */
+    
+    public static boolean eliminarZapatilla(int id) {
+    	String sql = "DELETE FROM zapatillas WHERE id = ?";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+    		PreparedStatement stmt = conn.prepareStatement(sql);
+    			
+    	) {
+    		stmt.setInt(1, id);
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+ 
+    	} catch (SQLException e){
+			System.out.println("❌ Error al eliminar zapatilla: " + e.getMessage());
+    		return false;
+    	}
+    
+    }
+    
+    /**
+     * Actualiza una zapatilla existente en la base de datos.
+     *
+     * @param z Objeto Zapatilla con los datos actualizados.
+     * @return true si la actualización fue exitosa, false si ocurrió un error.
+     */
+    public static boolean actualizarZapatilla(Zapatilla z) {
+        String sql = """
+            UPDATE zapatillas
+            SET id_color = ?, id_talla = ?, id_genero = ?, id_tipo = ?, id_marca = ?, Foto = ?
+            WHERE id = ?
+        """;
+
+        try (
+            Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, z.getIdColor());
+            stmt.setInt(2, z.getIdTalla());
+            stmt.setInt(3, z.getIdGenero());
+            stmt.setInt(4, z.getIdTipo());
+            stmt.setInt(5, z.getIdMarca());
+            stmt.setString(6, z.getFoto());
+            stmt.setInt(7, z.getId());
+
+            int filas = stmt.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error al actualizar zapatilla: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }

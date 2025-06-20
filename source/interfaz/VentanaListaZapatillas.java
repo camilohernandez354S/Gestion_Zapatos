@@ -11,8 +11,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class VentanaListaZapatillas extends JPanel {
-	
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     private ControladorZapatillas controlador;
     private JTable tabla;
@@ -20,6 +20,7 @@ public class VentanaListaZapatillas extends JPanel {
 
     public VentanaListaZapatillas() {
         controlador = new ControladorZapatillas();
+        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(this);
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -29,8 +30,14 @@ public class VentanaListaZapatillas extends JPanel {
         titulo.setForeground(new Color(33, 150, 243));
         add(titulo, BorderLayout.NORTH);
 
-        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto"};
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar" , "Editar"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 7 || column == 8; 
+            }
+        };
+
         tabla = new JTable(modelo);
         tabla.setRowHeight(24);
         tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -56,23 +63,33 @@ public class VentanaListaZapatillas extends JPanel {
             }
         });
 
+        
+        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controlador, tabla, this));
+        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controlador, tabla, this));
+        
+        tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controlador, tabla, formulario));
+        tabla.getColumn("Editar").setCellEditor(new BotonEditar(controlador, tabla, formulario));
+
+
         cargarZapatillas();
     }
 
-    private void cargarZapatillas() {
+    public void cargarZapatillas() {
         ArrayList<Zapatilla> lista = controlador.obtenerZapatillas();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.setRowCount(0);
+        modelo.setRowCount(0);  
 
         for (Zapatilla z : lista) {
             modelo.addRow(new Object[]{
-                z.getId(),
-                z.getIdColor(),
-                z.getIdTalla(),
-                z.getIdGenero(),
-                z.getIdTipo(),
-                z.getIdMarca(),
-                z.getFoto()
+                    z.getId(),
+                    z.getIdColor(),
+                    z.getIdTalla(),
+                    z.getIdGenero(),
+                    z.getIdTipo(),
+                    z.getIdMarca(),
+                    z.getFoto(),
+                    "Eliminar",
+                    "Editar"
             });
         }
     }
