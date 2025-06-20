@@ -59,6 +59,9 @@ public class VentanaPrincipalDashboard extends JFrame {
         add(encabezado, BorderLayout.NORTH);
         add(menuLateral, BorderLayout.WEST);
         add(panelCentral, BorderLayout.CENTER);
+        
+        mostrarLogoPrincipal();
+
 
         setVisible(true);
     }
@@ -99,4 +102,24 @@ public class VentanaPrincipalDashboard extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new VentanaPrincipalDashboard());
     }
+    
+    private void mostrarLogoPrincipal() {
+        panelCentral.removeAll();
+
+        JLabel labelImagen = new JLabel();
+        labelImagen.setHorizontalAlignment(JLabel.CENTER);
+        labelImagen.setVerticalAlignment(JLabel.CENTER);
+
+        // Ruta relativa al proyecto (asegúrate de que el archivo esté en /data/Imagenes/)
+        ImageIcon icono = new ImageIcon("data/Imagenes/LogoPrincipal.png");
+
+        // Escalar imagen si es necesario
+        Image imagen = icono.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        labelImagen.setIcon(new ImageIcon(imagen));
+
+        panelCentral.add(labelImagen, BorderLayout.CENTER);
+        panelCentral.revalidate();
+        panelCentral.repaint();
+    }
+
 }

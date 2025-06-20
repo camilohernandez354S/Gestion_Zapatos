@@ -23,7 +23,6 @@ public class TemaParametroDAO {
     public ArrayList<Parametro> obtenerParametrosPorTema(int idTema) {
         ArrayList<Parametro> lista = new ArrayList<>();
 
-        // Consulta SQL con JOIN para obtener los parámetros de un tema
         String sql = """
             SELECT p.id, p.nombre 
             FROM tema_parametros tp
@@ -47,7 +46,7 @@ public class TemaParametroDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al consultar parámetros del tema: " + e.getMessage());
+            System.out.println(" Error al consultar parámetros del tema: " + e.getMessage());
         }
 
         return lista;
