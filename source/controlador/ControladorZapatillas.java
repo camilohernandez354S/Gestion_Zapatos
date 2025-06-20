@@ -68,4 +68,14 @@ public class ControladorZapatillas {
     public ArrayList<Zapatilla> obtenerZapatillas() {
         return zapatillaDAO.obtenerTodasLasZapatillas();
     }
+    
+    /**
+     * Eliminar una zapatilla de la lista
+     * 
+     * @return lista de zapatillas
+     */
+    
+    public boolean eliminarZapatilla(int id) {
+    	return ZapatillaDAO.eliminarZapatilla(id);
+    }
 }

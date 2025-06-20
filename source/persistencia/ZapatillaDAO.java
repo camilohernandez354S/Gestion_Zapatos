@@ -81,14 +81,19 @@ public class ZapatillaDAO {
         return lista;
     }
     
+    
     /**
-     * Verifica si una zapatilla con el ID 
-     * 
-     * @param id El ID de la zapatilla a eliminar.
-     * @return true si se elimino la zapatilla correctamente, false si ocurre un error
+     * Elimina una zapatilla de la base de datos según su ID.
+     * <p>
+     * Ejecuta una sentencia SQL DELETE en la tabla 'zapatillas' para eliminar
+     * el registro correspondiente al ID proporcionado.
+     * </p>
+     *
+     * @param id El ID de la zapatilla que se desea eliminar.
+     * @return true si la eliminación fue exitosa (al menos una fila afectada), false si no se eliminó ninguna fila o ocurrió un error.
      */
     
-    public boolean eliminarZapatilla (int id) {
+    public static boolean eliminarZapatilla(int id) {
     	String sql = "DELETE FROM zapatillas WHERE id = ?";
     	
     	try (
@@ -108,6 +113,4 @@ public class ZapatillaDAO {
     
     }
     
-    
- 
 }

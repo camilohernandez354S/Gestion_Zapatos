@@ -11,8 +11,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class VentanaListaZapatillas extends JPanel {
-	
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     private ControladorZapatillas controlador;
     private JTable tabla;
@@ -29,8 +29,14 @@ public class VentanaListaZapatillas extends JPanel {
         titulo.setForeground(new Color(33, 150, 243));
         add(titulo, BorderLayout.NORTH);
 
-        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto"};
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto", "Acciones"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 7; 
+            }
+        };
+
         tabla = new JTable(modelo);
         tabla.setRowHeight(24);
         tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -56,44 +62,29 @@ public class VentanaListaZapatillas extends JPanel {
             }
         });
 
+        
+        tabla.getColumn("Acciones").setCellRenderer(new BotonEliminar(controlador, tabla));
+        tabla.getColumn("Acciones").setCellEditor(new BotonEliminar(controlador, tabla));
+
         cargarZapatillas();
     }
 
     private void cargarZapatillas() {
         ArrayList<Zapatilla> lista = controlador.obtenerZapatillas();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.setRowCount(0);
+        modelo.setRowCount(0);  
 
         for (Zapatilla z : lista) {
-        	
-        	JButton botonEliminar = new JButton("Eliminar");
-        	botonEliminar.addActionListener(new ActionListener() {
-        		
-        		public void actionPerformed(ActionEvent e) {
-        			
-        			int idZapatilla = z.getId();
-        			boolean eliminado = controlador.eliminarZapatilla(idZapatilla);
-        			if (eliminado) {
-        				JOptionPane.showMessageDialog(null, "Zapatilla eliminada correctamente");
-        				cargarZapatillas();
-        			} else {
-        				JOptionPane.showMessageDialog(null, "Error al eliminar la zapatilla");
-        			}
-        		}
-        		
-        	});
-        	
             modelo.addRow(new Object[]{
-                z.getId(),
-                z.getIdColor(),
-                z.getIdTalla(),
-                z.getIdGenero(),
-                z.getIdTipo(),
-                z.getIdMarca(),
-                z.getFoto(),
-                botonEliminar
+                    z.getId(),
+                    z.getIdColor(),
+                    z.getIdTalla(),
+                    z.getIdGenero(),
+                    z.getIdTipo(),
+                    z.getIdMarca(),
+                    z.getFoto(),
+                    "Eliminar" 
             });
         }
-        ButtonColumn.setButtonColumn(tabla, 7);
     }
 }

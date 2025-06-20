@@ -16,7 +16,7 @@ public class VentanaPrincipalDashboard extends JFrame {
     public VentanaPrincipalDashboard() {
         setTitle("Gestión de Zapatillas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(1000, 1200);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
