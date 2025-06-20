@@ -39,7 +39,7 @@ public class ZapatillaDAO {
             int filas = stmt.executeUpdate();
 
             return filas > 0;
-
+            
         } catch (SQLException e) {
             System.out.println("❌ Error al insertar zapatilla: " + e.getMessage());
             return false;

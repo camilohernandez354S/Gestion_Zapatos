@@ -20,7 +20,7 @@ public class VentanaListaZapatillas extends JPanel {
 
     public VentanaListaZapatillas() {
         controlador = new ControladorZapatillas();
-        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla();
+        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(this);
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -64,8 +64,8 @@ public class VentanaListaZapatillas extends JPanel {
         });
 
         
-        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controlador, tabla));
-        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controlador, tabla));
+        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controlador, tabla, this));
+        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controlador, tabla, this));
         
         tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controlador, tabla, formulario));
         tabla.getColumn("Editar").setCellEditor(new BotonEditar(controlador, tabla, formulario));
@@ -74,7 +74,7 @@ public class VentanaListaZapatillas extends JPanel {
         cargarZapatillas();
     }
 
-    private void cargarZapatillas() {
+    public void cargarZapatillas() {
         ArrayList<Zapatilla> lista = controlador.obtenerZapatillas();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.setRowCount(0);  

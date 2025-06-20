@@ -22,7 +22,7 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
         this.tabla = tabla;
         this.formulario = formulario;
 
-        // Botón para editar (editor)
+        
         boton = new JButton("Editar");
         boton.setForeground(Color.WHITE);
         boton.setBackground(new Color(30, 136, 229));
@@ -33,7 +33,7 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
         });
     }
 
-    // Método que contiene la lógica de edición
+    
     private void abrirFormularioEdicion() {
         int filaSeleccionada = tabla.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -60,8 +60,6 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
         }
     }
 
-    // Renderiza el botón (solo visual)
-    @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JButton botonRender = new JButton("Editar");
         botonRender.setForeground(Color.WHITE);
@@ -69,13 +67,12 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
         return botonRender;
     }
 
-    // Devuelve el botón funcional
-    @Override
+
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         return boton;
     }
 
-    @Override
+
     public Object getCellEditorValue() {
         return "Editar";
     }

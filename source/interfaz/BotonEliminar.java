@@ -16,10 +16,13 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
     private JButton boton;
     private JTable tabla;
     private ControladorZapatillas controlador;
+    private VentanaListaZapatillas panelLista;
 
-    public BotonEliminar(ControladorZapatillas controlador, JTable tabla) {
+
+    public BotonEliminar(ControladorZapatillas controlador, JTable tabla, VentanaListaZapatillas panelLista) {
         this.controlador = controlador;
         this.tabla = tabla;
+        this.panelLista = panelLista;
 
         boton = new JButton("Eliminar");
         boton.setBackground(Color.RED);
@@ -31,6 +34,7 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
         boton.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
+            	fireEditingStopped();
                 int fila = tabla.getSelectedRow();
                 if (fila >= 0) {
                     int id = (int) tabla.getValueAt(fila, 0);
@@ -48,7 +52,7 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
                         boolean eliminado = controlador.eliminarZapatilla(id);
                         if (eliminado) {
                             JOptionPane.showMessageDialog(null, "Zapatilla eliminada correctamente");
-                            ((DefaultTableModel) tabla.getModel()).removeRow(fila);
+                            panelLista.cargarZapatillas();
                         } else {
                             JOptionPane.showMessageDialog(null, "Error al eliminar la zapatilla");
                         }
@@ -59,14 +63,12 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
     }
 
     
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                   boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         return boton;
     }
 
     
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
-                                                 int row, int column) {
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         return boton;
     }
 
