@@ -68,7 +68,8 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         JButton btnSeleccionarImagen = new JButton("Seleccionar Imagen");
         btnSeleccionarImagen.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
+        	File carpetaPorDefecto = new File(System.getProperty("user.dir") + File.separator + "data");
+        	JFileChooser fileChooser = new JFileChooser(carpetaPorDefecto);
             int opcion = fileChooser.showOpenDialog(this);
             if (opcion == JFileChooser.APPROVE_OPTION) {
                 File archivo = fileChooser.getSelectedFile();
