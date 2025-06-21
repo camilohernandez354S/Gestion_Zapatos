@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConexionDB {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/zapatillas"; // <== nombre correcto
-    private static final String USUARIO = "root"; // reemplaza si tu usuario es diferente
-    private static final String CONTRASENA = ""; // reemplaza si tu contraseña tiene valor
+    private static final String URL = "jdbc:mysql://localhost:3306/zapatillas";
+    private static final String USUARIO = "root";
+    private static final String CONTRASENA = "";
     
     private static Connection conexion;
     
@@ -16,18 +16,20 @@ public class ConexionDB {
     private static boolean conexionExitosa = false;
 
     public static Connection obtenerConexion() {
-        if (conexion == null) { // Solo obtener la conexión si aún no existe
-            try {
+        try {
+            // Si no hay conexión o si está cerrada, se crea una nueva
+            if (conexion == null || conexion.isClosed()) {
                 conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
                 if (!conexionExitosa) {
                     System.out.println("✅ Conexión exitosa a la base de datos.");
                     conexionExitosa = true; 
                 }
-            } catch (SQLException e) {
-                System.out.println("❌ Error al conectar a la base de datos: " + e.getMessage());
-                return null;  // Devolvemos null si ocurre un error
             }
+        } catch (SQLException e) {
+            System.out.println("❌ Error al conectar a la base de datos: " + e.getMessage());
+            return null;
         }
-        return conexion; // Si todo es exitoso, devolvemos la conexión
+        return conexion;
     }
+
 }

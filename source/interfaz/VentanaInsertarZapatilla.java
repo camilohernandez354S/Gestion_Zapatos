@@ -38,12 +38,12 @@ public class VentanaInsertarZapatilla extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        comboColor = new JComboBox<>();
-        comboTalla = new JComboBox<>();
-        comboGenero = new JComboBox<>();
-        comboTipo = new JComboBox<>();
-        comboMarca = new JComboBox<>();
-        txtFoto = new JTextField(20);
+        comboColor.setFont(new Font("Arial", Font.PLAIN, 16));
+        comboTalla.setFont(new Font("Arial", Font.PLAIN, 16));
+        comboGenero.setFont(new Font("Arial", Font.PLAIN, 16));
+        comboTipo.setFont(new Font("Arial", Font.PLAIN, 16));
+        comboMarca.setFont(new Font("Arial", Font.PLAIN, 16));
+
 
         cargarParametros();
 
