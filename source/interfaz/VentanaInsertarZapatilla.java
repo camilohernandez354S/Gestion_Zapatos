@@ -16,7 +16,6 @@ public class VentanaInsertarZapatilla extends JPanel {
     private ControladorZapatillas controlador;
     private JComboBox<Parametro> comboColor, comboTalla, comboGenero, comboTipo, comboMarca;
     private JTextField txtFoto;
-    private Zapatilla zapatillaActual = null;
     private int idActual;
     private JButton btnGuardar;
     private boolean modoEdicion = false;
@@ -31,45 +30,56 @@ public class VentanaInsertarZapatilla extends JPanel {
         setBackground(Color.WHITE);	
 
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(new Color(250, 250, 250));
-        panel.setBorder(BorderFactory.createTitledBorder("Registro de Zapatilla"));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Registro de Zapatilla"));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(15, 20, 15, 20);
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        comboColor.setFont(new Font("Arial", Font.PLAIN, 16));
-        comboTalla.setFont(new Font("Arial", Font.PLAIN, 16));
-        comboGenero.setFont(new Font("Arial", Font.PLAIN, 16));
-        comboTipo.setFont(new Font("Arial", Font.PLAIN, 16));
-        comboMarca.setFont(new Font("Arial", Font.PLAIN, 16));
+        Font fuenteCampos = new Font("Segoe UI", Font.PLAIN, 18);
 
+        comboColor = new JComboBox<>();
+        comboTalla = new JComboBox<>();
+        comboGenero = new JComboBox<>();
+        comboTipo = new JComboBox<>();
+        comboMarca = new JComboBox<>();
+        txtFoto = new JTextField(25);
+
+        comboColor.setFont(fuenteCampos);
+        comboTalla.setFont(fuenteCampos);
+        comboGenero.setFont(fuenteCampos);
+        comboTipo.setFont(fuenteCampos);
+        comboMarca.setFont(fuenteCampos);
+        txtFoto.setFont(fuenteCampos);
 
         cargarParametros();
 
         int y = 0;
-        gbc.gridx = 0; gbc.gridy = y; panel.add(new JLabel("Color:"), gbc);
+        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Color:"), gbc);
         gbc.gridx = 1; panel.add(comboColor, gbc); y++;
 
-        gbc.gridx = 0; gbc.gridy = y; panel.add(new JLabel("Talla:"), gbc);
+        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Talla:"), gbc);
         gbc.gridx = 1; panel.add(comboTalla, gbc); y++;
 
-        gbc.gridx = 0; gbc.gridy = y; panel.add(new JLabel("Género:"), gbc);
+        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Género:"), gbc);
         gbc.gridx = 1; panel.add(comboGenero, gbc); y++;
 
-        gbc.gridx = 0; gbc.gridy = y; panel.add(new JLabel("Tipo:"), gbc);
+        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Tipo:"), gbc);
         gbc.gridx = 1; panel.add(comboTipo, gbc); y++;
 
-        gbc.gridx = 0; gbc.gridy = y; panel.add(new JLabel("Marca:"), gbc);
+        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Marca:"), gbc);
         gbc.gridx = 1; panel.add(comboMarca, gbc); y++;
 
-        gbc.gridx = 0; gbc.gridy = y; panel.add(new JLabel("Ruta Imagen:"), gbc);
+        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Ruta Imagen:"), gbc);
         gbc.gridx = 1; panel.add(txtFoto, gbc); y++;
 
         JButton btnSeleccionarImagen = new JButton("Seleccionar Imagen");
+        btnSeleccionarImagen.setFont(fuenteCampos);
         btnSeleccionarImagen.addActionListener(e -> {
-        	File carpetaPorDefecto = new File(System.getProperty("user.dir") + File.separator + "data");
-        	JFileChooser fileChooser = new JFileChooser(carpetaPorDefecto);
+            File carpetaPorDefecto = new File(System.getProperty("user.dir") + File.separator + "data");
+            JFileChooser fileChooser = new JFileChooser(carpetaPorDefecto);
             int opcion = fileChooser.showOpenDialog(this);
             if (opcion == JFileChooser.APPROVE_OPTION) {
                 File archivo = fileChooser.getSelectedFile();
@@ -78,23 +88,35 @@ public class VentanaInsertarZapatilla extends JPanel {
         });
 
         gbc.gridx = 0; gbc.gridy = y; gbc.gridwidth = 2; panel.add(btnSeleccionarImagen, gbc); y++;
-        
-        btnGuardar = new JButton("Guardar");
-        btnGuardar.setBackground(new Color (76, 175, 80));
-        btnGuardar.setForeground(Color.WHITE);
-        btnGuardar.addActionListener(e -> {
-        	if (modoEdicion) {
-        		guardarCambios();
-        	} else {
-        		guardarZapatilla();
-        	}
-        });
-        
 
-        gbc.gridx = 0; gbc.gridy = y; gbc.gridwidth = 2; gbc.anchor = GridBagConstraints.CENTER;
+        btnGuardar = new JButton("Guardar");
+        btnGuardar.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        btnGuardar.setBackground(new Color(76, 175, 80));
+        btnGuardar.setForeground(Color.WHITE);
+        btnGuardar.setFocusPainted(false);
+        btnGuardar.setPreferredSize(new Dimension(180, 40));
+        btnGuardar.addActionListener(e -> {
+            if (modoEdicion) {
+                guardarCambios();
+            } else {
+                guardarZapatilla();
+            }
+        });
+
+        gbc.gridx = 0; gbc.gridy = y; gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         panel.add(btnGuardar, gbc);
 
         add(panel, BorderLayout.CENTER);
+    }
+
+    /**
+     * Método auxiliar para crear etiquetas grandes y estilizadas.
+     */
+    private JLabel crearLabel(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        return label;
     }
 
     private void cargarParametros() {
@@ -123,9 +145,9 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         boolean exito = controlador.insertarZapatilla(z);
         if (exito) {
-            JOptionPane.showMessageDialog(this, "✅ Zapatilla guardada correctamente.");
+            JOptionPane.showMessageDialog(this, " Zapatilla guardada correctamente.");
         } else {
-            JOptionPane.showMessageDialog(this, "❌ Error al guardar la zapatilla.");
+            JOptionPane.showMessageDialog(this, " Error al guardar la zapatilla.");
         }
     }
     
@@ -139,22 +161,17 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         boolean actualizado = controlador.actualizarZapatilla(z);
         if (actualizado) {
-            JOptionPane.showMessageDialog(this, "✅ Zapatilla actualizada correctamente.");
+            JOptionPane.showMessageDialog(this, " Zapatilla actualizada correctamente.");
             panelLista.cargarZapatillas();
             SwingUtilities.getWindowAncestor(this).dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "❌ Error al actualizar la zapatilla.");
+            JOptionPane.showMessageDialog(this, " Error al actualizar la zapatilla.");
         }
     }
 
-
-    
     public void cargarZapatilla(Zapatilla z) {
-        
     	this.idActual = z.getId();
     	this.modoEdicion = true;
-    	this.zapatillaActual = z;
-    	
     	seleccionarEnCombo(comboColor, z.getIdColor());
     	seleccionarEnCombo(comboTalla, z.getIdTalla());
     	seleccionarEnCombo(comboGenero, z.getIdGenero());
@@ -167,7 +184,6 @@ public class VentanaInsertarZapatilla extends JPanel {
     
     public void prepararParaAgregar() {
     	this.modoEdicion = false;
-    	this.zapatillaActual = null;
     	this.idActual = 0;
     	
     	cargarParametros();
@@ -180,9 +196,7 @@ public class VentanaInsertarZapatilla extends JPanel {
     	txtFoto.setText("");
     	
     	btnGuardar.setText("Guardar");
-    	
     }
-
 
     private void seleccionarEnCombo(JComboBox<Parametro> combo, int id) {
         for (int i = 0; i < combo.getItemCount(); i++) {
