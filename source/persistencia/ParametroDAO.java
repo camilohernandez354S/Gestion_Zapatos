@@ -22,16 +22,13 @@ public class ParametroDAO {
     public ArrayList<Parametro> obtenerTodosLosParametros() {
         ArrayList<Parametro> lista = new ArrayList<>();
 
-        // Consulta SQL
         String sql = "SELECT * FROM parametros";
 
         try (
-            // Obtener la conexión desde ConexionDB
             Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
         ) {
-            // Recorrer el resultado y crear objetos Parametro
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
@@ -41,7 +38,7 @@ public class ParametroDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al consultar los parámetros: " + e.getMessage());
+            System.out.println(" Error al consultar los parámetros: " + e.getMessage());
         }
 
         return lista;

@@ -41,7 +41,7 @@ public class ZapatillaDAO {
             return filas > 0;
             
         } catch (SQLException e) {
-            System.out.println("❌ Error al insertar zapatilla: " + e.getMessage());
+            System.out.println(" Error al insertar zapatilla: " + e.getMessage());
             return false;
         }
     }
@@ -75,7 +75,7 @@ public class ZapatillaDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al consultar zapatillas: " + e.getMessage());
+            System.out.println(" Error al consultar zapatillas: " + e.getMessage());
         }
 
         return lista;

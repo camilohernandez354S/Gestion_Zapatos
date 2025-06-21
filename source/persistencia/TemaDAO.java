@@ -22,16 +22,13 @@ public class TemaDAO {
     public ArrayList<Tema> obtenerTodosLosTemas() {
         ArrayList<Tema> lista = new ArrayList<>();
 
-        // Consulta SQL
         String sql = "SELECT * FROM tema";
 
         try (
-            // Establecer conexión y preparar consulta
             Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
         ) {
-            // Recorremos los resultados
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
@@ -41,7 +38,7 @@ public class TemaDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al consultar los temas: " + e.getMessage());
+            System.out.println(" Error al consultar los temas: " + e.getMessage());
         }
 
         return lista;
