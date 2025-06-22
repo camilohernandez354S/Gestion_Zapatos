@@ -90,8 +90,8 @@ public class VentanaPrincipalDashboard extends JFrame {
      */
     private void mostrarRegistrar() {
         panelCentral.removeAll();
-        formulario = new VentanaInsertarZapatilla(panelLista); // Crear siempre uno nuevo
-        formulario.prepararParaAgregar(); // limpia el formulario
+        formulario = new VentanaInsertarZapatilla(panelLista);
+        formulario.prepararParaAgregar();
         panelCentral.add(formulario, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();
@@ -103,7 +103,7 @@ public class VentanaPrincipalDashboard extends JFrame {
      */
     private void mostrarLista() {
         panelCentral.removeAll();
-        panelLista.cargarZapatillas(); // 🔁 recargar por si hubo cambios
+        panelLista.cargarZapatillas();
         panelCentral.add(panelLista, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();

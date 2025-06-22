@@ -15,18 +15,9 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
 	private static final long serialVersionUID = 1L;
 
     private JButton boton;
-    private JTable tabla;
-    private ControladorZapatillas controlador;
-    private VentanaListaZapatillas panelLista;
-
-
     public BotonEliminar(ControladorZapatillas controlador, JTable tabla, VentanaListaZapatillas panelLista) {
-        this.controlador = controlador;
-        this.tabla = tabla;
-        this.panelLista = panelLista;
-
         boton = new JButton("Eliminar");
-        boton.setBackground(Color.RED);
+        boton.setBackground(new Color(239, 83, 80));
         boton.setForeground(Color.WHITE);
         boton.setFocusPainted(false);
         boton.setPreferredSize(new Dimension(100, 30));

@@ -23,7 +23,7 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
         
         boton = new JButton("Editar");
         boton.setForeground(Color.WHITE);
-        boton.setBackground(new Color(30, 136, 229));
+        boton.setBackground(new Color(66, 165, 245));
 
         boton.addActionListener(e -> {
             fireEditingStopped();
