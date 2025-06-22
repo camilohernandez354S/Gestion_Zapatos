@@ -46,7 +46,6 @@ public class VentanaInsertarZapatilla extends JPanel {
         comboMarca = new JComboBox<>();
         txtFoto = new JTextField(25);
 
-        comboColor.setFont(fuenteCampos);
         comboTalla.setFont(fuenteCampos);
         comboGenero.setFont(fuenteCampos);
         comboTipo.setFont(fuenteCampos);
@@ -56,11 +55,6 @@ public class VentanaInsertarZapatilla extends JPanel {
         cargarParametros();
 
         int y = 0;
-<<<<<<< HEAD
-=======
-        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Color:"), gbc);
-        gbc.gridx = 1; panel.add(comboColor, gbc); y++;
->>>>>>> f0181e3152478700c6ea6b5f37fe6e207e9ca4da
 
         gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Talla:"), gbc);
         gbc.gridx = 1; panel.add(comboTalla, gbc); y++;
@@ -147,6 +141,7 @@ public class VentanaInsertarZapatilla extends JPanel {
         boolean exito = controlador.insertarZapatilla(z);
         if (exito) {
             JOptionPane.showMessageDialog(this, " Zapatilla guardada correctamente.");
+            panelLista.cargarZapatillas(); 
         } else {
             JOptionPane.showMessageDialog(this, " Error al guardar la zapatilla.");
         }
@@ -173,12 +168,7 @@ public class VentanaInsertarZapatilla extends JPanel {
     public void cargarZapatilla(Zapatilla z) {
     	this.idActual = z.getId();
     	this.modoEdicion = true;
-<<<<<<< HEAD
-    	this.zapatillaActual = z;
     	
-=======
-    	seleccionarEnCombo(comboColor, z.getIdColor());
->>>>>>> f0181e3152478700c6ea6b5f37fe6e207e9ca4da
     	seleccionarEnCombo(comboTalla, z.getIdTalla());
     	seleccionarEnCombo(comboGenero, z.getIdGenero());
     	seleccionarEnCombo(comboTipo, z.getIdTipo());

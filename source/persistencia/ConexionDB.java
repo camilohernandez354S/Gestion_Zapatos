@@ -14,7 +14,6 @@ public class ConexionDB {
     private static boolean conexionExitosa = false;
 
     public static Connection obtenerConexion() {
-<<<<<<< HEAD
         Connection conexion = null;
         try {
             conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
@@ -28,22 +27,4 @@ public class ConexionDB {
         return conexion;
     }
 }
-=======
-        try {
-            // Si no hay conexión o si está cerrada, se crea una nueva
-            if (conexion == null || conexion.isClosed()) {
-                conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-                if (!conexionExitosa) {
-                    System.out.println("✅ Conexión exitosa a la base de datos.");
-                    conexionExitosa = true; 
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("❌ Error al conectar a la base de datos: " + e.getMessage());
-            return null;
-        }
-        return conexion;
-    }
 
-}
->>>>>>> f0181e3152478700c6ea6b5f37fe6e207e9ca4da

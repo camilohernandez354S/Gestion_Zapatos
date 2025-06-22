@@ -34,7 +34,7 @@ public class VentanaListaZapatillas extends JPanel {
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 7 || column == 8; 
+                return column == 6 || column == 7; 
             }
         };
 
@@ -55,7 +55,7 @@ public class VentanaListaZapatillas extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int fila = tabla.getSelectedRow();
                 if (fila >= 0) {
-                    String ruta = tabla.getValueAt(fila, 6).toString();
+                    String ruta = tabla.getValueAt(fila, 5).toString();
                     ImageIcon icono = new ImageIcon(ruta);
                     Image imagen = icono.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
                     imagenLabel.setIcon(new ImageIcon(imagen));

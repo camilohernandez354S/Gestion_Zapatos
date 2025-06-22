@@ -29,11 +29,11 @@ public class ZapatillaDAO {
             Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
-            stmt.setInt(2, zapatilla.getIdTalla());
-            stmt.setInt(3, zapatilla.getIdGenero());
-            stmt.setInt(4, zapatilla.getIdTipo());
-            stmt.setInt(5, zapatilla.getIdMarca());
-            stmt.setString(6, zapatilla.getFoto());
+            stmt.setInt(1, zapatilla.getIdTalla());
+            stmt.setInt(2, zapatilla.getIdGenero());
+            stmt.setInt(3, zapatilla.getIdTipo());
+            stmt.setInt(4, zapatilla.getIdMarca());
+            stmt.setString(5, zapatilla.getFoto());
 
             int filas = stmt.executeUpdate();
 
