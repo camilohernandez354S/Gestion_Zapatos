@@ -88,4 +88,13 @@ public class ControladorZapatillas {
     public boolean actualizarZapatilla(Zapatilla z) {
     	return ZapatillaDAO.actualizarZapatilla(z);
     }
+    
+    /**
+     * Retorna un parámetro dado su ID (por ejemplo, para mostrar el nombre del color, talla, etc.)
+     */
+    public Parametro obtenerParametroPorId(int id) {
+        ParametroDAO dao = new ParametroDAO();
+        return dao.obtenerParametroPorId(id);
+    }
+
 }

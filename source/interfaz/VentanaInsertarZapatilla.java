@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class VentanaInsertarZapatilla extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-
+	
     private ControladorZapatillas controlador;
     private JComboBox<Parametro> comboColor, comboTalla, comboGenero, comboTipo, comboMarca;
     private JTextField txtFoto;
@@ -146,10 +146,19 @@ public class VentanaInsertarZapatilla extends JPanel {
         boolean exito = controlador.insertarZapatilla(z);
         if (exito) {
             JOptionPane.showMessageDialog(this, " Zapatilla guardada correctamente.");
+
+            // Reiniciar la vista en el panel central
+            SwingUtilities.getWindowAncestor(this).dispose(); // esto cierra la ventana actual, NO sirve
+            // lo que debes hacer es notificar a VentanaPrincipalDashboard que lo vuelva a mostrar limpio
+            // Lo mejor: llamar prepararParaAgregar()
+            prepararParaAgregar();
         } else {
             JOptionPane.showMessageDialog(this, " Error al guardar la zapatilla.");
         }
     }
+
+
+
     
     private void guardarCambios() {
         if (!validarCampos()) {

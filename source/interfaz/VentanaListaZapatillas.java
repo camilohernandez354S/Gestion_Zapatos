@@ -77,20 +77,27 @@ public class VentanaListaZapatillas extends JPanel {
     public void cargarZapatillas() {
         ArrayList<Zapatilla> lista = controlador.obtenerZapatillas();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.setRowCount(0);  
+        modelo.setRowCount(0);
 
         for (Zapatilla z : lista) {
+            String color = controlador.obtenerParametroPorId(z.getIdColor()).getNombre();
+            String talla = controlador.obtenerParametroPorId(z.getIdTalla()).getNombre();
+            String genero = controlador.obtenerParametroPorId(z.getIdGenero()).getNombre();
+            String tipo = controlador.obtenerParametroPorId(z.getIdTipo()).getNombre();
+            String marca = controlador.obtenerParametroPorId(z.getIdMarca()).getNombre();
+
             modelo.addRow(new Object[]{
                     z.getId(),
-                    z.getIdColor(),
-                    z.getIdTalla(),
-                    z.getIdGenero(),
-                    z.getIdTipo(),
-                    z.getIdMarca(),
+                    color,
+                    talla,
+                    genero,
+                    tipo,
+                    marca,
                     z.getFoto(),
                     "Eliminar",
                     "Editar"
             });
         }
     }
+
 }

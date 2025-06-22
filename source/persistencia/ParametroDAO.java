@@ -43,4 +43,31 @@ public class ParametroDAO {
 
         return lista;
     }
+    
+    
+    public Parametro obtenerParametroPorId(int id) {
+        Parametro parametro = null;
+        String sql = "SELECT * FROM parametros WHERE id = ?";
+
+        try (
+            Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int idParametro = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                parametro = new Parametro(idParametro, nombre);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener parámetro por ID: " + e.getMessage());
+        }
+
+        return parametro;
+    }
+
+    
+    
 }

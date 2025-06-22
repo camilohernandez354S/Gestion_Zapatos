@@ -12,6 +12,7 @@ public class VentanaPrincipalDashboard extends JFrame {
 	private static final long serialVersionUID = 1L;
 
     private JPanel panelCentral;
+    private VentanaInsertarZapatilla formulario;
     private VentanaListaZapatillas panelLista;
 
     public VentanaPrincipalDashboard() {
@@ -51,10 +52,10 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral.setLayout(new BorderLayout());
         panelCentral.setBackground(Color.WHITE);
         
-        
         panelLista = new VentanaListaZapatillas();
         
         VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(panelLista);
+        formulario.prepararParaAgregar(); // 🔁 CORRECCIÓN: limpia el formulario al iniciar
 
         // Acciones de los botones
         btnRegistrar.addActionListener(e -> mostrarRegistrar());
@@ -67,7 +68,6 @@ public class VentanaPrincipalDashboard extends JFrame {
         add(panelCentral, BorderLayout.CENTER);
         
         mostrarLogoPrincipal();
-
 
         setVisible(true);
     }
@@ -90,12 +90,13 @@ public class VentanaPrincipalDashboard extends JFrame {
      */
     private void mostrarRegistrar() {
         panelCentral.removeAll();
-        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(panelLista);
+        formulario = new VentanaInsertarZapatilla(panelLista); // Crear siempre uno nuevo
         formulario.prepararParaAgregar(); // limpia el formulario
         panelCentral.add(formulario, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();
     }
+
 
     /**
      * Carga la vista de ver zapatillas.
