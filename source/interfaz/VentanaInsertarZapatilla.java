@@ -14,14 +14,14 @@ public class VentanaInsertarZapatilla extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
     private ControladorZapatillas controlador;
-    private JComboBox<Parametro> comboColor, comboTalla, comboGenero, comboTipo, comboMarca;
+    private JComboBox<Parametro> comboTalla, comboGenero, comboTipo, comboMarca;
     private JTextField txtFoto;
     private int idActual;
     private JButton btnGuardar;
     private boolean modoEdicion = false;
     private VentanaListaZapatillas panelLista;
 
-    private int idColor = 1, idTalla = 2, idGenero = 3, idTipo = 4, idMarca = 5;
+    private int idTalla = 1, idGenero = 2, idTipo = 3, idMarca = 4;
 
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
         this.controlador = new ControladorZapatillas();
@@ -40,14 +40,12 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         Font fuenteCampos = new Font("Segoe UI", Font.PLAIN, 18);
 
-        comboColor = new JComboBox<>();
         comboTalla = new JComboBox<>();
         comboGenero = new JComboBox<>();
         comboTipo = new JComboBox<>();
         comboMarca = new JComboBox<>();
         txtFoto = new JTextField(25);
 
-        comboColor.setFont(fuenteCampos);
         comboTalla.setFont(fuenteCampos);
         comboGenero.setFont(fuenteCampos);
         comboTipo.setFont(fuenteCampos);
@@ -57,8 +55,6 @@ public class VentanaInsertarZapatilla extends JPanel {
         cargarParametros();
 
         int y = 0;
-        gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Color:"), gbc);
-        gbc.gridx = 1; panel.add(comboColor, gbc); y++;
 
         gbc.gridx = 0; gbc.gridy = y; panel.add(crearLabel("Talla:"), gbc);
         gbc.gridx = 1; panel.add(comboTalla, gbc); y++;
@@ -120,7 +116,6 @@ public class VentanaInsertarZapatilla extends JPanel {
     }
 
     private void cargarParametros() {
-        cargarCombo(comboColor, idColor);
         cargarCombo(comboTalla, idTalla);
         cargarCombo(comboGenero, idGenero);
         cargarCombo(comboTipo, idTipo);
@@ -147,11 +142,9 @@ public class VentanaInsertarZapatilla extends JPanel {
         if (exito) {
             JOptionPane.showMessageDialog(this, " Zapatilla guardada correctamente.");
 
-            // Reiniciar la vista en el panel central
-            SwingUtilities.getWindowAncestor(this).dispose(); // esto cierra la ventana actual, NO sirve
-            // lo que debes hacer es notificar a VentanaPrincipalDashboard que lo vuelva a mostrar limpio
-            // Lo mejor: llamar prepararParaAgregar()
+            SwingUtilities.getWindowAncestor(this).dispose();
             prepararParaAgregar();
+            panelLista.cargarZapatillas(); 
         } else {
             JOptionPane.showMessageDialog(this, " Error al guardar la zapatilla.");
         }
@@ -181,7 +174,7 @@ public class VentanaInsertarZapatilla extends JPanel {
     public void cargarZapatilla(Zapatilla z) {
     	this.idActual = z.getId();
     	this.modoEdicion = true;
-    	seleccionarEnCombo(comboColor, z.getIdColor());
+    	
     	seleccionarEnCombo(comboTalla, z.getIdTalla());
     	seleccionarEnCombo(comboGenero, z.getIdGenero());
     	seleccionarEnCombo(comboTipo, z.getIdTipo());
@@ -197,11 +190,11 @@ public class VentanaInsertarZapatilla extends JPanel {
     	
     	cargarParametros();
     	
-    	comboColor.setSelectedIndex(0);
-    	comboTalla.setSelectedIndex(0);
-    	comboGenero.setSelectedIndex(0);
-    	comboTipo.setSelectedIndex(0);
-    	comboMarca.setSelectedIndex(0);
+    	
+    	if (comboTalla.getItemCount() > 0) comboTalla.setSelectedIndex(0);
+    	if (comboGenero.getItemCount() > 0) comboGenero.setSelectedIndex(0);
+    	if (comboTipo.getItemCount() > 0) comboTipo.setSelectedIndex(0);
+    	if (comboMarca.getItemCount() > 0) comboMarca.setSelectedIndex(0);
     	txtFoto.setText("");
     	
     	btnGuardar.setText("Guardar");
@@ -218,18 +211,17 @@ public class VentanaInsertarZapatilla extends JPanel {
     }
     
     private boolean validarCampos() {
-        return comboColor.getSelectedItem() != null &&
-               comboTalla.getSelectedItem() != null &&
+        return comboTalla.getSelectedItem() != null &&
                comboGenero.getSelectedItem() != null &&
                comboTipo.getSelectedItem() != null &&
                comboMarca.getSelectedItem() != null &&
                !txtFoto.getText().trim().isEmpty();
+               
     }
     
     private Zapatilla construirZapatillaDesdeFormulario(int id) {
         return new Zapatilla(
             id,
-            ((Parametro) comboColor.getSelectedItem()).getId(),
             ((Parametro) comboTalla.getSelectedItem()).getId(),
             ((Parametro) comboGenero.getSelectedItem()).getId(),
             ((Parametro) comboTipo.getSelectedItem()).getId(),

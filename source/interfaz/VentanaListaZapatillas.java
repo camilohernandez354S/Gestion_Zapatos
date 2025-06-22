@@ -30,11 +30,16 @@ public class VentanaListaZapatillas extends JPanel {
         titulo.setForeground(new Color(33, 150, 243));
         add(titulo, BorderLayout.NORTH);
 
-        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar" , "Editar"};
+        String[] columnas = {"ID", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar" , "Editar"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
-                return column == 7 || column == 8; 
+                return column == 6 || column == 7; 
             }
         };
 
@@ -55,7 +60,7 @@ public class VentanaListaZapatillas extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int fila = tabla.getSelectedRow();
                 if (fila >= 0) {
-                    String ruta = tabla.getValueAt(fila, 6).toString();
+                    String ruta = tabla.getValueAt(fila, 5).toString();
                     ImageIcon icono = new ImageIcon(ruta);
                     Image imagen = icono.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
                     imagenLabel.setIcon(new ImageIcon(imagen));
@@ -80,7 +85,6 @@ public class VentanaListaZapatillas extends JPanel {
         modelo.setRowCount(0);
 
         for (Zapatilla z : lista) {
-            String color = controlador.obtenerParametroPorId(z.getIdColor()).getNombre();
             String talla = controlador.obtenerParametroPorId(z.getIdTalla()).getNombre();
             String genero = controlador.obtenerParametroPorId(z.getIdGenero()).getNombre();
             String tipo = controlador.obtenerParametroPorId(z.getIdTipo()).getNombre();
@@ -88,11 +92,14 @@ public class VentanaListaZapatillas extends JPanel {
 
             modelo.addRow(new Object[]{
                     z.getId(),
-                    color,
                     talla,
                     genero,
                     tipo,
                     marca,
+                    z.getIdTalla(),
+                    z.getIdGenero(),
+                    z.getIdTipo(),
+                    z.getIdMarca(),
                     z.getFoto(),
                     "Eliminar",
                     "Editar"

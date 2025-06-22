@@ -10,26 +10,21 @@ public class ConexionDB {
     private static final String USUARIO = "root";
     private static final String CONTRASENA = "";
     
-    private static Connection conexion;
-    
     // Bandera para imprimir el mensaje solo una vez
     private static boolean conexionExitosa = false;
 
     public static Connection obtenerConexion() {
+        Connection conexion = null;
         try {
-            // Si no hay conexión o si está cerrada, se crea una nueva
-            if (conexion == null || conexion.isClosed()) {
-                conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-                if (!conexionExitosa) {
-                    System.out.println("✅ Conexión exitosa a la base de datos.");
-                    conexionExitosa = true; 
-                }
+            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
+            if (!conexionExitosa) {
+                System.out.println("Conexión exitosa a la base de datos.");
+                conexionExitosa = true; 
             }
         } catch (SQLException e) {
-            System.out.println("❌ Error al conectar a la base de datos: " + e.getMessage());
-            return null;
+            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
         }
         return conexion;
     }
-
 }
+

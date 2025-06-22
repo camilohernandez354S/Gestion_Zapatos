@@ -11,7 +11,6 @@ public class Zapatilla {
     private int id;
 
     // Claves foráneas hacia tema_parametros
-    private int idColor;
     private int idTalla;
     private int idGenero;
     private int idTipo;
@@ -37,9 +36,8 @@ public class Zapatilla {
      * @param idMarca   ID de la marca (tema_parametros)
      * @param foto      Ruta de la imagen de la zapatilla
      */
-    public Zapatilla(int id, int idColor, int idTalla, int idGenero, int idTipo, int idMarca, String foto) {
+    public Zapatilla(int id, int idTalla, int idGenero, int idTipo, int idMarca, String foto) {
         this.id = id;
-        this.idColor = idColor;
         this.idTalla = idTalla;
         this.idGenero = idGenero;
         this.idTipo = idTipo;
@@ -55,14 +53,6 @@ public class Zapatilla {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdColor() {
-        return idColor;
-    }
-
-    public void setIdColor(int idColor) {
-        this.idColor = idColor;
     }
 
     public int getIdTalla() {

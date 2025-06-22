@@ -7,18 +7,16 @@ import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class BotonEditar extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
+	
+	private static final long serialVersionUID = 1L;
 
-    private ControladorZapatillas controlador;
     private JTable tabla;
     private VentanaInsertarZapatilla formulario;
     private JButton boton;
 
     public BotonEditar(ControladorZapatillas controlador, JTable tabla, VentanaInsertarZapatilla formulario) {
-        this.controlador = controlador;
         this.tabla = tabla;
         this.formulario = formulario;
 
@@ -38,14 +36,13 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
         int filaSeleccionada = tabla.getSelectedRow();
         if (filaSeleccionada != -1) {
             int id = (int) tabla.getValueAt(filaSeleccionada, 0);
-            int color = (int) tabla.getValueAt(filaSeleccionada, 1);
-            int talla = (int) tabla.getValueAt(filaSeleccionada, 2);
-            int genero = (int) tabla.getValueAt(filaSeleccionada, 3);
-            int tipo = (int) tabla.getValueAt(filaSeleccionada, 4);
-            int marca = (int) tabla.getValueAt(filaSeleccionada, 5);
-            String foto = tabla.getValueAt(filaSeleccionada, 6).toString();
+            int talla = (int) tabla.getValueAt(filaSeleccionada, 1);
+            int genero = (int) tabla.getValueAt(filaSeleccionada, 2);
+            int tipo = (int) tabla.getValueAt(filaSeleccionada, 3);
+            int marca = (int) tabla.getValueAt(filaSeleccionada, 4);
+            String foto = tabla.getValueAt(filaSeleccionada, 5).toString();
 
-            Zapatilla z = new Zapatilla(id, color, talla, genero, tipo, marca, foto);
+            Zapatilla z = new Zapatilla(id, talla, genero, tipo, marca, foto);
             formulario.cargarZapatilla(z);
 
             JDialog dialogo = new JDialog();
