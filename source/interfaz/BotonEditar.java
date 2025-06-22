@@ -11,12 +11,14 @@ import java.awt.*;
 public class BotonEditar extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	private ControladorZapatillas controlador;
     private JTable tabla;
     private VentanaInsertarZapatilla formulario;
     private JButton boton;
 
     public BotonEditar(ControladorZapatillas controlador, JTable tabla, VentanaInsertarZapatilla formulario) {
+    	this.controlador = controlador; // <- ESTA ES LA LÍNEA NUEVA
         this.tabla = tabla;
         this.formulario = formulario;
 
@@ -35,14 +37,9 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
     private void abrirFormularioEdicion() {
         int filaSeleccionada = tabla.getSelectedRow();
         if (filaSeleccionada != -1) {
-            int id = (int) tabla.getValueAt(filaSeleccionada, 0);
-            int talla = (int) tabla.getValueAt(filaSeleccionada, 1);
-            int genero = (int) tabla.getValueAt(filaSeleccionada, 2);
-            int tipo = (int) tabla.getValueAt(filaSeleccionada, 3);
-            int marca = (int) tabla.getValueAt(filaSeleccionada, 4);
-            String foto = tabla.getValueAt(filaSeleccionada, 5).toString();
+            int id = (int) tabla.getValueAt(filaSeleccionada, 1); // ID real está en la columna 1
 
-            Zapatilla z = new Zapatilla(id, talla, genero, tipo, marca, foto);
+            Zapatilla z = controlador.obtenerZapatillaPorId(id);
             formulario.cargarZapatilla(z);
 
             JDialog dialogo = new JDialog();
@@ -56,6 +53,7 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
             JOptionPane.showMessageDialog(null, "Selecciona una fila para editar.");
         }
     }
+
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JButton botonRender = new JButton("Editar");

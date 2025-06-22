@@ -11,10 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.EventObject;
 
 public class BotonEliminar extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
-	
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     private JButton boton;
+
     public BotonEliminar(ControladorZapatillas controlador, JTable tabla, VentanaListaZapatillas panelLista) {
         boton = new JButton("Eliminar");
         boton.setBackground(new Color(239, 83, 80));
@@ -24,20 +25,19 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
         boton.setFont(new Font("Arial", Font.BOLD, 12));
 
         boton.addActionListener(new ActionListener() {
-            
             public void actionPerformed(ActionEvent e) {
-            	fireEditingStopped();
+                fireEditingStopped();
                 int fila = tabla.getSelectedRow();
                 if (fila >= 0) {
-                    int id = (int) tabla.getValueAt(fila, 0);
+                    // Cambio importante: usamos la columna 1 porque ahí está el ID real
+                    int id = (int) tabla.getValueAt(fila, 1);
 
-                    
                     int confirmacion = JOptionPane.showConfirmDialog(
-                        tabla,
-                        "¿Está seguro de que desea eliminar esta zapatilla?",
-                        "Confirmar Eliminación",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE
+                            tabla,
+                            "¿Está seguro de que desea eliminar esta zapatilla?",
+                            "Confirmar Eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE
                     );
 
                     if (confirmacion == JOptionPane.YES_OPTION) {
@@ -54,22 +54,18 @@ public class BotonEliminar extends AbstractCellEditor implements TableCellRender
         });
     }
 
-    
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         return boton;
     }
 
-    
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         return boton;
     }
 
-    
     public boolean isCellEditable(EventObject e) {
         return true;
     }
 
-    
     public Object getCellEditorValue() {
         return null;
     }

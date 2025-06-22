@@ -21,7 +21,11 @@ public class VentanaInsertarZapatilla extends JPanel {
     private boolean modoEdicion = false;
     private VentanaListaZapatillas panelLista;
 
-    private int idTalla = 1, idGenero = 2, idTipo = 3, idMarca = 4;
+    private int idTalla = 2;
+    private int idGenero = 3;
+    private int idTipo = 4;
+    private int idMarca = 5;
+
 
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
         this.controlador = new ControladorZapatillas();
@@ -31,7 +35,15 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.WHITE);
-        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Registro de Zapatilla"));
+        panel.setBorder(BorderFactory.createTitledBorder(
+        	    BorderFactory.createLineBorder(Color.GRAY),
+        	    "Registro de Zapatilla",
+        	    javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+        	    javax.swing.border.TitledBorder.ABOVE_TOP,
+        	    new Font("Segoe UI", Font.BOLD, 30),
+        	    Color.BLACK             
+        	));
+
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 20, 15, 20);
@@ -140,15 +152,20 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         boolean exito = controlador.insertarZapatilla(z);
         if (exito) {
-            JOptionPane.showMessageDialog(this, " Zapatilla guardada correctamente.");
+            JOptionPane.showMessageDialog(this, "Zapatilla guardada correctamente.");
 
-            SwingUtilities.getWindowAncestor(this).dispose();
             prepararParaAgregar();
-            panelLista.cargarZapatillas(); 
+            panelLista.cargarZapatillas();
+
+            Window window = SwingUtilities.getWindowAncestor(this);
+            if (window instanceof JDialog) {
+                ((JDialog) window).dispose();
+            }
         } else {
-            JOptionPane.showMessageDialog(this, " Error al guardar la zapatilla.");
+            JOptionPane.showMessageDialog(this, "Error al guardar la zapatilla.");
         }
     }
+
 
 
 
@@ -191,12 +208,11 @@ public class VentanaInsertarZapatilla extends JPanel {
     	cargarParametros();
     	
     	
-    	if (comboTalla.getItemCount() > 0) comboTalla.setSelectedIndex(0);
-    	if (comboGenero.getItemCount() > 0) comboGenero.setSelectedIndex(0);
-    	if (comboTipo.getItemCount() > 0) comboTipo.setSelectedIndex(0);
-    	if (comboMarca.getItemCount() > 0) comboMarca.setSelectedIndex(0);
+    	comboTalla.setSelectedIndex(-1);
+    	comboGenero.setSelectedIndex(-1);
+    	comboTipo.setSelectedIndex(-1);
+    	comboMarca.setSelectedIndex(-1);
     	txtFoto.setText("");
-    	
     	btnGuardar.setText("Guardar");
     }
 

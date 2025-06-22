@@ -10,6 +10,7 @@ import persistencia.TemaDAO;
 import persistencia.TemaParametroDAO;
 import persistencia.ZapatillaDAO;
 
+
 /**
  * Clase que actúa como intermediario entre la interfaz gráfica
  * y la capa de persistencia.
@@ -96,5 +97,15 @@ public class ControladorZapatillas {
         ParametroDAO dao = new ParametroDAO();
         return dao.obtenerParametroPorId(id);
     }
+    
+    public Zapatilla obtenerZapatillaPorId(int id) {
+        for (Zapatilla z : obtenerZapatillas()) {
+            if (z.getId() == id) {
+                return z;
+            }
+        }
+        return null;
+    }
+
 
 }
