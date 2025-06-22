@@ -30,7 +30,7 @@ public class VentanaListaZapatillas extends JPanel {
         titulo.setForeground(new Color(33, 150, 243));
         add(titulo, BorderLayout.NORTH);
 
-        String[] columnas = {"ID", "Color", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar" , "Editar"};
+        String[] columnas = {"ID", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar" , "Editar"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -82,7 +82,6 @@ public class VentanaListaZapatillas extends JPanel {
         for (Zapatilla z : lista) {
             modelo.addRow(new Object[]{
                     z.getId(),
-                    z.getIdColor(),
                     z.getIdTalla(),
                     z.getIdGenero(),
                     z.getIdTipo(),

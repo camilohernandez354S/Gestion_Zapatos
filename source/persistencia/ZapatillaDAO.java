@@ -21,15 +21,14 @@ public class ZapatillaDAO {
      */
     public boolean insertarZapatilla(Zapatilla zapatilla) {
         String sql = """
-            INSERT INTO zapatillas (id_color, id_talla, id_genero, id_tipo, id_marca, Foto)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO zapatillas (id_talla, id_genero, id_tipo, id_marca, Foto)
+            VALUES (?, ?, ?, ?, ?)
         """;
 
         try (
             Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
-            stmt.setInt(1, zapatilla.getIdColor());
             stmt.setInt(2, zapatilla.getIdTalla());
             stmt.setInt(3, zapatilla.getIdGenero());
             stmt.setInt(4, zapatilla.getIdTipo());
@@ -63,14 +62,13 @@ public class ZapatillaDAO {
         ) {
             while (rs.next()) {
                 int id = rs.getInt("id");
-                int idColor = rs.getInt("id_color");
                 int idTalla = rs.getInt("id_talla");
                 int idGenero = rs.getInt("id_genero");
                 int idTipo = rs.getInt("id_tipo");
                 int idMarca = rs.getInt("id_marca");
                 String foto = rs.getString("Foto");
 
-                Zapatilla z = new Zapatilla(id, idColor, idTalla, idGenero, idTipo, idMarca, foto);
+                Zapatilla z = new Zapatilla(id, idTalla, idGenero, idTipo, idMarca, foto);
                 lista.add(z);
             }
 
@@ -122,7 +120,7 @@ public class ZapatillaDAO {
     public static boolean actualizarZapatilla(Zapatilla z) {
         String sql = """
             UPDATE zapatillas
-            SET id_color = ?, id_talla = ?, id_genero = ?, id_tipo = ?, id_marca = ?, Foto = ?
+            SET id_talla = ?, id_genero = ?, id_tipo = ?, id_marca = ?, Foto = ?
             WHERE id = ?
         """;
 
@@ -130,13 +128,12 @@ public class ZapatillaDAO {
             Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
-            stmt.setInt(1, z.getIdColor());
-            stmt.setInt(2, z.getIdTalla());
-            stmt.setInt(3, z.getIdGenero());
-            stmt.setInt(4, z.getIdTipo());
-            stmt.setInt(5, z.getIdMarca());
-            stmt.setString(6, z.getFoto());
-            stmt.setInt(7, z.getId());
+            stmt.setInt(1, z.getIdTalla());
+            stmt.setInt(2, z.getIdGenero());
+            stmt.setInt(3, z.getIdTipo());
+            stmt.setInt(4, z.getIdMarca());
+            stmt.setString(5, z.getFoto());
+            stmt.setInt(6, z.getId());
 
             int filas = stmt.executeUpdate();
             return filas > 0;

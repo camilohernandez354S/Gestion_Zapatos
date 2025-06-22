@@ -27,7 +27,7 @@ CREATE TABLE `parametros` (
   `nombre` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES (11,'35'),(12,'36'),(13,'37'),(14,'38'),(15,'39'),(16,'40'),(17,'41'),(18,'42'),(19,'43'),(31,'ADIDAS'),(4,'AMARILLO'),(29,'ASICS'),(1,'AZUL'),(24,'BASKETBALL'),(10,'BLANCO'),(8,'CAFÉ'),(21,'FEMENINO'),(25,'FUTBOL'),(28,'GIMNASIO'),(20,'MASCULINO'),(26,'MICRO-FUTBOL'),(30,'MIZUNO'),(6,'MORADO'),(5,'NARANJA'),(9,'NEGRO'),(35,'NEW BALANCE'),(32,'NIKE'),(34,'PUMA'),(36,'REEBOK'),(2,'ROJO'),(7,'ROSADO'),(27,'RUNNING'),(33,'UNDER-ARMOUR'),(22,'UNISEX'),(3,'VERDE'),(23,'VOLEIBOL');
+INSERT INTO `parametros` VALUES (1,'25'),(2,'26'),(3,'27'),(4,'28'),(5,'29'),(6,'30'),(7,'31'),(8,'32'),(9,'33'),(10,'34'),(11,'35'),(12,'36'),(13,'37'),(14,'38'),(15,'39'),(16,'40'),(17,'41'),(18,'42'),(19,'43'),(20,'44'),(21,'45'),(37,'ADIDAS'),(35,'ASICS'),(26,'BALONCESTO'),(44,'DC SHOES'),(23,'FEMENINO'),(27,'FÚTBOL'),(33,'GIMNASIO'),(30,'GOLF'),(22,'MASCULINO'),(28,'MICRO-FÚTBOL'),(36,'MIZUNO'),(40,'NEW BALANCE'),(38,'NIKE'),(32,'PING PONG'),(39,'PUMA'),(45,'REEBOK'),(34,'RUNNING'),(31,'SKATEBOARDING'),(29,'TENIS'),(41,'UNDER ARMOUR'),(24,'UNISEX'),(43,'VANS'),(25,'VOLEIBOL'),(42,'WILSON');
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +52,7 @@ CREATE TABLE `tema` (
   `nombre` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +61,7 @@ CREATE TABLE `tema` (
 
 LOCK TABLES `tema` WRITE;
 /*!40000 ALTER TABLE `tema` DISABLE KEYS */;
-INSERT INTO `tema` VALUES (1,'COLORES'),(3,'GÉNEROS'),(5,'MARCAS'),(2,'TALLAS'),(4,'TIPOS');
+INSERT INTO `tema` VALUES (2,'GENERO'),(4,'MARCA'),(1,'TALLAS'),(3,'TIPO');
 /*!40000 ALTER TABLE `tema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +81,7 @@ CREATE TABLE `tema_parametros` (
   KEY `id_parametro` (`id_parametro`),
   CONSTRAINT `tema_parametros_ibfk_1` FOREIGN KEY (`id_tema`) REFERENCES `tema` (`id`),
   CONSTRAINT `tema_parametros_ibfk_2` FOREIGN KEY (`id_parametro`) REFERENCES `parametros` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `tema_parametros` (
 
 LOCK TABLES `tema_parametros` WRITE;
 /*!40000 ALTER TABLE `tema_parametros` DISABLE KEYS */;
-INSERT INTO `tema_parametros` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,9),(10,1,10),(11,2,11),(12,2,12),(13,2,13),(14,2,14),(15,2,15),(16,2,16),(17,2,17),(18,2,18),(19,2,19),(20,3,20),(21,3,21),(22,3,22),(23,4,23),(24,4,24),(25,4,25),(26,4,26),(27,4,27),(28,4,28),(29,5,29),(30,5,30),(31,5,31),(32,5,32),(33,5,33),(34,5,34),(35,5,35),(36,5,36);
+INSERT INTO `tema_parametros` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,9),(10,1,10),(11,1,11),(12,1,12),(13,1,13),(14,1,14),(15,1,15),(16,1,16),(17,1,17),(18,1,18),(19,1,19),(20,1,20),(21,1,21),(22,2,22),(23,2,23),(24,2,24),(25,3,25),(26,3,26),(27,3,27),(28,3,28),(29,3,29),(30,3,30),(31,3,31),(32,3,32),(33,3,33),(34,3,34),(35,4,35),(36,4,36),(37,4,37),(38,4,38),(39,4,39),(40,4,40),(41,4,41),(42,4,42),(43,4,43),(44,4,44),(45,4,45);
 /*!40000 ALTER TABLE `tema_parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `zapatillas` (
   CONSTRAINT `zapatillas_ibfk_3` FOREIGN KEY (`id_genero`) REFERENCES `tema_parametros` (`id`),
   CONSTRAINT `zapatillas_ibfk_4` FOREIGN KEY (`id_tipo`) REFERENCES `tema_parametros` (`id`),
   CONSTRAINT `zapatillas_ibfk_5` FOREIGN KEY (`id_marca`) REFERENCES `tema_parametros` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,6 @@ CREATE TABLE `zapatillas` (
 
 LOCK TABLES `zapatillas` WRITE;
 /*!40000 ALTER TABLE `zapatillas` DISABLE KEYS */;
-INSERT INTO `zapatillas` VALUES (19,8,11,22,28,36,'');
 /*!40000 ALTER TABLE `zapatillas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -142,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-20 12:19:12
+-- Dump completed on 2025-06-21 19:14:35
