@@ -26,6 +26,10 @@ public class VentanaInsertarZapatilla extends JPanel {
     private int idGenero = 2;
     private int idTipo = 3;
     private int idMarca = 4;
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/imagenes
 
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
         this.controlador = new ControladorZapatillas();
@@ -85,7 +89,7 @@ public class VentanaInsertarZapatilla extends JPanel {
         JButton btnSeleccionarImagen = new JButton("Seleccionar Imagen");
         btnSeleccionarImagen.setFont(fuenteCampos);
         btnSeleccionarImagen.addActionListener(e -> {
-            File carpetaPorDefecto = new File(System.getProperty("user.dir") + File.separator + "data");
+            File carpetaPorDefecto = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator + "Imagenes");
             JFileChooser fileChooser = new JFileChooser(carpetaPorDefecto);
             int opcion = fileChooser.showOpenDialog(this);
             if (opcion == JFileChooser.APPROVE_OPTION) {
