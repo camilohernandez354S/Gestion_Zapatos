@@ -16,6 +16,7 @@ public class VentanaInsertarZapatilla extends JPanel {
     private ControladorZapatillas controlador;
     private JComboBox<Parametro> comboTalla, comboGenero, comboTipo, comboMarca;
     private JTextField txtFoto;
+    private JLabel previewImagen;
     private int idActual;
     private JButton btnGuardar;
     private boolean modoEdicion = false;
@@ -25,7 +26,6 @@ public class VentanaInsertarZapatilla extends JPanel {
     private int idGenero = 3;
     private int idTipo = 4;
     private int idMarca = 5;
-
 
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
         this.controlador = new ControladorZapatillas();
@@ -43,7 +43,6 @@ public class VentanaInsertarZapatilla extends JPanel {
         	    new Font("Segoe UI", Font.BOLD, 30),
         	    Color.BLACK             
         	));
-
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 20, 15, 20);
@@ -92,11 +91,26 @@ public class VentanaInsertarZapatilla extends JPanel {
             if (opcion == JFileChooser.APPROVE_OPTION) {
                 File archivo = fileChooser.getSelectedFile();
                 txtFoto.setText(archivo.getAbsolutePath());
+
+                // Mostrar vista previa de imagen
+                ImageIcon icono = new ImageIcon(archivo.getAbsolutePath());
+                Image imagen = icono.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                previewImagen.setIcon(new ImageIcon(imagen));
             }
         });
 
         gbc.gridx = 0; gbc.gridy = y; gbc.gridwidth = 2; panel.add(btnSeleccionarImagen, gbc); y++;
 
+     // Vista previa de la imagen seleccionada
+        previewImagen = new JLabel();
+        previewImagen.setPreferredSize(new Dimension(200, 200));
+        previewImagen.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        previewImagen.setHorizontalAlignment(JLabel.CENTER);
+        gbc.gridx = 0; gbc.gridy = y;
+        panel.add(previewImagen, gbc);
+        y++; // Incrementamos el índice para que el siguiente componente se ubique debajo
+
+     // Ahora el botón Guardar va después de la imagen
         btnGuardar = new JButton("Guardar");
         btnGuardar.setFont(new Font("Segoe UI", Font.BOLD, 18));
         btnGuardar.setBackground(new Color(76, 175, 80));
@@ -166,10 +180,6 @@ public class VentanaInsertarZapatilla extends JPanel {
         }
     }
 
-
-
-
-    
     private void guardarCambios() {
         if (!validarCampos()) {
             JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
@@ -180,11 +190,11 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         boolean actualizado = controlador.actualizarZapatilla(z);
         if (actualizado) {
-            JOptionPane.showMessageDialog(this, " Zapatilla actualizada correctamente.");
+            JOptionPane.showMessageDialog(this, "Zapatilla actualizada correctamente.");
             panelLista.cargarZapatillas();
             SwingUtilities.getWindowAncestor(this).dispose();
         } else {
-            JOptionPane.showMessageDialog(this, " Error al actualizar la zapatilla.");
+            JOptionPane.showMessageDialog(this, "Error al actualizar la zapatilla.");
         }
     }
 
@@ -197,22 +207,29 @@ public class VentanaInsertarZapatilla extends JPanel {
     	seleccionarEnCombo(comboTipo, z.getIdTipo());
     	seleccionarEnCombo(comboMarca, z.getIdMarca());
     	txtFoto.setText(z.getFoto());
+
+    	// Mostrar vista previa de la imagen al cargar
+    	ImageIcon icono = new ImageIcon(z.getFoto());
+    	Image imagen = icono.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+    	previewImagen.setIcon(new ImageIcon(imagen));
     	
     	btnGuardar.setText("Guardar Cambios");
     }
-    
+
     public void prepararParaAgregar() {
     	this.modoEdicion = false;
     	this.idActual = 0;
-    	
+
     	cargarParametros();
-    	
     	
     	comboTalla.setSelectedIndex(-1);
     	comboGenero.setSelectedIndex(-1);
     	comboTipo.setSelectedIndex(-1);
     	comboMarca.setSelectedIndex(-1);
     	txtFoto.setText("");
+    	
+    	// Limpiar la vista previa de la imagen
+    	previewImagen.setIcon(null);
     	btnGuardar.setText("Guardar");
     }
 
@@ -233,6 +250,7 @@ public class VentanaInsertarZapatilla extends JPanel {
                comboMarca.getSelectedItem() != null &&
                !txtFoto.getText().trim().isEmpty();
                
+
     }
     
     private Zapatilla construirZapatillaDesdeFormulario(int id) {
