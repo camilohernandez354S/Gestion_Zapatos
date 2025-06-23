@@ -22,10 +22,10 @@ public class VentanaInsertarZapatilla extends JPanel {
     private boolean modoEdicion = false;
     private VentanaListaZapatillas panelLista;
 
-    private int idTalla = 2;
-    private int idGenero = 3;
-    private int idTipo = 4;
-    private int idMarca = 5;
+    private int idTalla = 1;
+    private int idGenero = 2;
+    private int idTipo = 3;
+    private int idMarca = 4;
 
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
         this.controlador = new ControladorZapatillas();
