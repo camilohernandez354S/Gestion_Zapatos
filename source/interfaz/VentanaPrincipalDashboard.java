@@ -121,7 +121,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         labelImagen.setVerticalAlignment(JLabel.CENTER);
 
         // Ruta relativa al proyecto (asegúrate de que el archivo esté en /data/Imagenes/)
-        ImageIcon icono = new ImageIcon("data\\Imagenes\\Principal2.jpg");
+        ImageIcon icono = new ImageIcon("data\\Imagenes\\LogoPrincipal.png");
 
         // Escalar imagen si es necesario
         Image imagen = icono.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);

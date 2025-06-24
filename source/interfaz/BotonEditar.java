@@ -50,7 +50,7 @@ public class BotonEditar extends AbstractCellEditor implements TableCellRenderer
             dialogo.setLocationRelativeTo(null);
             dialogo.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciona una fila para editar.");
+            JOptionPane.showMessageDialog(null, "Error al editar la zapatilla");
         }
     }
 

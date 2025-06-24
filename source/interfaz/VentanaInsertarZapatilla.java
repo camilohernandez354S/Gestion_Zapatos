@@ -26,10 +26,6 @@ public class VentanaInsertarZapatilla extends JPanel {
     private int idGenero = 2;
     private int idTipo = 3;
     private int idMarca = 4;
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/imagenes
 
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
         this.controlador = new ControladorZapatillas();
