@@ -6,17 +6,11 @@ package mundo;
  */
 public class Tema {
 
-    // Identificador único del tema (clave primaria)
+    // Id del tema 
     private int id;
 
-    // Nombre del tema (ejemplo: "Colores", "Marcas")
+    // Nombre del tema ( "Colores", "Marcas")
     private String nombre;
-
-    /**
-     * Constructor vacío (útil para frameworks y librerías de persistencia)
-     */
-    public Tema() {
-    }
 
     /**
      * Constructor con todos los campos

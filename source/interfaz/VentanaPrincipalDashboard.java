@@ -4,17 +4,22 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Ventana principal con estilo dashboard moderno.
- * Contiene menú lateral y panel central que cambia según la opción.
+ * Ventana principal del sistema con un estilo de dashboard moderno.
+ * Contiene un menú lateral con opciones para registrar, ver y salir del sistema,
+ * y un panel central que cambia su contenido según la opción seleccionada en el menú.
  */
 public class VentanaPrincipalDashboard extends JFrame {
-	
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 
     private JPanel panelCentral;
     private VentanaInsertarZapatilla formulario;
     private VentanaListaZapatillas panelLista;
 
+    /**
+     * Constructor de la ventana principal del sistema.
+     * Inicializa los componentes gráficos y asigna las acciones a los botones del menú.
+     */
     public VentanaPrincipalDashboard() {
         setTitle("Gestión de Zapatillas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,7 +27,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // 🔵 Panel de encabezado
+        // Panel de encabezado
         JPanel encabezado = new JPanel();
         encabezado.setBackground(new Color(33, 150, 243));
         encabezado.setPreferredSize(new Dimension(900, 80));
@@ -32,7 +37,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         titulo.setForeground(Color.WHITE);
         encabezado.add(titulo);
 
-        // 🟢 Panel lateral (menú)
+        // Panel lateral (menú)
         JPanel menuLateral = new JPanel();
         menuLateral.setLayout(new GridLayout(3, 1, 10, 10));
         menuLateral.setBackground(new Color(240, 240, 240));
@@ -47,13 +52,13 @@ public class VentanaPrincipalDashboard extends JFrame {
         menuLateral.add(btnVer);
         menuLateral.add(btnSalir);
 
-        // ⚪ Panel central (donde cambia el contenido)
+        // Panel central 
         panelCentral = new JPanel();
         panelCentral.setLayout(new BorderLayout());
         panelCentral.setBackground(Color.WHITE);
-        
+
         panelLista = new VentanaListaZapatillas();
-        
+
         VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(panelLista);
         formulario.prepararParaAgregar(); // 🔁 CORRECCIÓN: limpia el formulario al iniciar
 
@@ -66,7 +71,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         add(encabezado, BorderLayout.NORTH);
         add(menuLateral, BorderLayout.WEST);
         add(panelCentral, BorderLayout.CENTER);
-        
+
         mostrarLogoPrincipal();
 
         setVisible(true);
@@ -74,6 +79,10 @@ public class VentanaPrincipalDashboard extends JFrame {
 
     /**
      * Crea un botón estilizado con fondo y texto blanco.
+     * 
+     * @param texto      El texto que se mostrará en el botón.
+     * @param colorFondo El color de fondo del botón.
+     * @return El botón creado con estilo.
      */
     private JButton crearBoton(String texto, Color colorFondo) {
         JButton boton = new JButton(texto);
@@ -86,7 +95,8 @@ public class VentanaPrincipalDashboard extends JFrame {
     }
 
     /**
-     * Carga la vista de registrar zapatilla.
+     * Carga la vista de registrar una nueva zapatilla.
+     * Se reemplaza el contenido del panel central con el formulario para agregar zapatillas.
      */
     private void mostrarRegistrar() {
         panelCentral.removeAll();
@@ -97,9 +107,9 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral.repaint();
     }
 
-
     /**
-     * Carga la vista de ver zapatillas.
+     * Carga la vista de ver las zapatillas registradas.
+     * Se reemplaza el contenido del panel central con la lista de zapatillas.
      */
     private void mostrarLista() {
         panelCentral.removeAll();
@@ -109,10 +119,18 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral.repaint();
     }
 
+    /**
+     * Método principal para ejecutar la ventana principal del sistema.
+     * Llama al constructor para mostrar la interfaz gráfica.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new VentanaPrincipalDashboard());
     }
-    
+
+    /**
+     * Muestra el logo principal en el panel central cuando no se ha seleccionado ninguna opción.
+     * Se establece una imagen en el centro de la ventana.
+     */
     private void mostrarLogoPrincipal() {
         panelCentral.removeAll();
 
@@ -120,10 +138,12 @@ public class VentanaPrincipalDashboard extends JFrame {
         labelImagen.setHorizontalAlignment(JLabel.CENTER);
         labelImagen.setVerticalAlignment(JLabel.CENTER);
 
+<<<<<<< HEAD
         // Ruta relativa al proyecto (asegúrate de que el archivo esté en /data/Imagenes/)
+=======
+>>>>>>> 68e4b3c4a793df5dfe819a9e0a1dd2578561d43e
         ImageIcon icono = new ImageIcon("data\\Imagenes\\LogoPrincipal.png");
 
-        // Escalar imagen si es necesario
         Image imagen = icono.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
         labelImagen.setIcon(new ImageIcon(imagen));
 
