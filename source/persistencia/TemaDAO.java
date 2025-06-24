@@ -46,16 +46,15 @@ public class TemaDAO {
     
     public boolean insertarTema(Tema tema) {
     	String sql = """
-    			INSERT INTO tema (id, nombre)
-    			VALUES (?, ?)
+    			INSERT INTO tema (nombre)
+    			VALUES (?)
     			""";
     	
     	try (
     		Connection conn = ConexionDB.obtenerConexion();
     		PreparedStatement stmt = conn.prepareStatement(sql);
     	){
-    		stmt.setInt(1, tema.getId());
-    		stmt.setString(2, tema.getNombre());
+    		stmt.setString(1, tema.getNombre());
     		
     		int filas = stmt.executeUpdate();
     		
@@ -68,7 +67,7 @@ public class TemaDAO {
     }
     
     public static boolean eliminarTema(int id) {
-    	String sql = "DELETE FROM zapatillas WHERE id = ?";
+    	String sql = "DELETE FROM tema WHERE id = ?";
     	
     	try (
     		Connection conn = ConexionDB.obtenerConexion();
@@ -89,16 +88,15 @@ public class TemaDAO {
     public static boolean actualizarTema(Tema t) {
     	String sql = """
     			UPDATE tema
-    			SET id = ?, nombre = ?
-    			WHERE id
+    			SET nombre = ?
+    			WHERE id = ?
     			""";
     	
     	try (
     		Connection conn = ConexionDB.obtenerConexion();
     		PreparedStatement stmt = conn.prepareStatement(sql);
     	) {
-    		stmt.setInt(1, t.getId());
-    		stmt.setString(2, t.getNombre());
+    		stmt.setString(1, t.getNombre());
     		
     		int filas = stmt.executeUpdate();
     		return filas > 0;

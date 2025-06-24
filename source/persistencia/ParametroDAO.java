@@ -47,6 +47,67 @@ public class ParametroDAO {
         return lista;
     }
     
+    public boolean insertarParametro(Parametro parametro) {
+    	String sql = """
+    			INSERT INTO parametros (nombre)
+    			VALUES (?)
+    			""";
+    	try(
+    		Connection conn = ConexionDB.obtenerConexion();
+    		PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setString(2, parametro.getNombre());
+    		
+    		int filas = stmt.executeUpdate();
+    		
+    		return filas > 0;
+    		
+    	} catch (SQLException e) {
+    		System.out.println("Error al insertar un parametro");
+    		return false;
+    	}
+    }
+    
+    public static boolean eliminarParametro(int id) {
+    	String sql = "DELETE FROM parametros WHERE id = ?";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+        	PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, id);
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+    		
+    	} catch(SQLException e) {
+    		System.out.println("Error al eliminar un parametro");
+    		return false;
+    	}
+    	
+    }
+    
+    public static boolean actualizarParametro(Parametro p) {
+    	String sql = """
+    			UPDATE parametros
+    			SET nombre = ?
+    			WHERE id = ?
+    			""";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+        	PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setString(1, p.getNombre());
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+    	} catch (SQLException e) {
+    		System.out.println("Error al actualizar el parametro: " + e.getMessage());
+    		return false;
+    	}
+    }
+    
     /**
      * Obtiene un parámetro de la base de datos por su ID.
      * Este método ejecuta una consulta SQL con un parámetro dinámico (ID) para obtener el parámetro correspondiente.
