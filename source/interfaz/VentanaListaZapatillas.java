@@ -12,6 +12,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Ventana que permite mostrar la lista de zapatillas registradas.
+ * La ventana permite ordenar las zapatillas por diferentes parámetros como talla, marca o tipo.
+ * También ofrece la opción de eliminar o editar las zapatillas directamente desde la tabla.
+ */
 public class VentanaListaZapatillas extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -21,6 +26,9 @@ public class VentanaListaZapatillas extends JPanel {
     private JLabel imagenLabel;
     private ArrayList<Zapatilla> zapatillasOriginal;
 
+    /**
+     * Constructor de la clase, inicializa la ventana de la lista de zapatillas y configura los componentes gráficos.
+     */
     public VentanaListaZapatillas() {
         controlador = new ControladorZapatillas();
         VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(this);
@@ -28,13 +36,13 @@ public class VentanaListaZapatillas extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // Título
+        // Título de la ventana
         JLabel titulo = new JLabel("Zapatillas Registradas", JLabel.CENTER);
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
         titulo.setForeground(new Color(33, 150, 243));
         add(titulo, BorderLayout.NORTH);
 
-        // -------- NUEVO: PANEL DE BOTONES DE ORDENAR ----------
+        // Panel para los botones de ordenar
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelBotones.setBackground(Color.WHITE);
 
@@ -45,9 +53,8 @@ public class VentanaListaZapatillas extends JPanel {
         panelBotones.add(btnOrdenarTalla);
         panelBotones.add(btnOrdenarMarca);
         panelBotones.add(btnOrdenarTipo);
-        // ------------------------------------------------------
 
-        // Tabla y modelo
+        // Definición de la tabla y su modelo
         String[] columnas = {"Numero", "ID real", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar", "Editar"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
             private static final long serialVersionUID = 1L;
@@ -68,11 +75,11 @@ public class VentanaListaZapatillas extends JPanel {
         tabla.getTableHeader().setForeground(Color.WHITE);
         tabla.getTableHeader().setReorderingAllowed(false);
 
+        // Establecimiento de colores de las filas
         tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             private static final long serialVersionUID = 1L;
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (!isSelected) {
                     c.setBackground(row % 2 == 0 ? new Color(245, 245, 245) : new Color(230, 240, 255));
@@ -83,21 +90,22 @@ public class VentanaListaZapatillas extends JPanel {
             }
         });
 
-        JScrollPane scroll = new JScrollPane(tabla); // ← Declaración única y correcta
-
-        // Creamos un panel central que contiene los botones + la tabla
+        // Crear el panel central que contiene los botones de ordenación y la tabla
+        JScrollPane scroll = new JScrollPane(tabla);
         JPanel panelCentral = new JPanel(new BorderLayout());
         panelCentral.add(panelBotones, BorderLayout.NORTH);
         panelCentral.add(scroll, BorderLayout.CENTER);
 
-        // Añadimos ese panel central al centro de la ventana
+        // Añadir el panel central al centro de la ventana
         add(panelCentral, BorderLayout.CENTER);
 
+        // Etiqueta para mostrar la imagen seleccionada de la tabla
         imagenLabel = new JLabel();
         imagenLabel.setPreferredSize(new Dimension(250, 250));
         imagenLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         add(imagenLabel, BorderLayout.EAST);
 
+        // Acción de clic en una fila para mostrar la imagen de la zapatilla
         tabla.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int fila = tabla.getSelectedRow();
@@ -110,16 +118,17 @@ public class VentanaListaZapatillas extends JPanel {
             }
         });
 
+        // Configuración de los botones "Eliminar" y "Editar" para cada fila
         tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controlador, tabla, this));
         tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controlador, tabla, this));
 
         tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controlador, tabla, formulario));
         tabla.getColumn("Editar").setCellEditor(new BotonEditar(controlador, tabla, formulario));
 
-        // Cargar zapatillas al iniciar
+        // Cargar las zapatillas al iniciar la ventana
         cargarZapatillas();
 
-        // -------- ACCIONES DE LOS BOTONES DE ORDENAR ----------
+        // Acciones de los botones de ordenar
         btnOrdenarTalla.addActionListener(e -> {
             ArrayList<Zapatilla> ordenadas = new ArrayList<>(zapatillasOriginal);
             ordenadas.sort(Comparator.comparing(a -> controlador.obtenerParametroPorId(a.getIdTalla()).getNombre()));
@@ -139,11 +148,21 @@ public class VentanaListaZapatillas extends JPanel {
         });
     }
 
+    /**
+     * Carga las zapatillas en la tabla al iniciar la ventana.
+     * Obtiene las zapatillas del controlador y las muestra en la tabla.
+     */
     public void cargarZapatillas() {
-        zapatillasOriginal = controlador.obtenerZapatillas(); // Guardamos copia original
+        zapatillasOriginal = controlador.obtenerZapatillas();
         mostrarZapatillasEnTabla(zapatillasOriginal);
     }
 
+    /**
+     * Muestra las zapatillas en la tabla.
+     * Recibe una lista de zapatillas y las agrega a la tabla.
+     *
+     * @param lista Lista de zapatillas a mostrar en la tabla.
+     */
     public void mostrarZapatillasEnTabla(ArrayList<Zapatilla> lista) {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.setRowCount(0);
@@ -155,15 +174,15 @@ public class VentanaListaZapatillas extends JPanel {
             String marca = controlador.obtenerParametroPorId(z.getIdMarca()).getNombre();
 
             modelo.addRow(new Object[]{
-                    (i + 1),
-                    z.getId(),
-                    talla,
-                    genero,
-                    tipo,
-                    marca,
-                    z.getFoto(),
-                    "Eliminar",
-                    "Editar"
+                    (i + 1),             // Número de fila
+                    z.getId(),           // ID real de la zapatilla
+                    talla,               // Talla de la zapatilla
+                    genero,              // Género de la zapatilla
+                    tipo,                // Tipo de la zapatilla
+                    marca,               // Marca de la zapatilla
+                    z.getFoto(),        // Ruta de la imagen de la zapatilla
+                    "Eliminar",          // Botón de eliminar
+                    "Editar"             // Botón de editar
             });
         }
     }

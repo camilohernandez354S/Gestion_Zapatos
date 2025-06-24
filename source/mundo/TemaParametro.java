@@ -8,20 +8,10 @@ package mundo;
  */
 public class TemaParametro {
 
-    // ID único de la relación (clave primaria en tema_parametros)
     private int id;
-
-    // ID del tema relacionado (colores, marcas, etc.)
     private int idTema;
-
-    // ID del parámetro relacionado (rojo, nike, etc.)
     private int idParametro;
 
-    /**
-     * Constructor vacío
-     */
-    public TemaParametro() {
-    }
 
     /**
      * Constructor con todos los campos

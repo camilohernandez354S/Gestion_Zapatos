@@ -10,14 +10,17 @@ import mundo.Parametro;
 
 /**
  * Clase encargada de acceder a la tabla 'parametros' en la base de datos.
- * Contiene métodos para consultar todos los parámetros registrados.
+ * Esta clase contiene métodos para consultar los parámetros registrados en la base de datos,
+ * como la obtención de todos los parámetros y la obtención de un parámetro específico por su ID.
  */
 public class ParametroDAO {
 
     /**
-     * Obtiene todos los parámetros registrados en la tabla 'parametros'
+     * Obtiene todos los parámetros registrados en la tabla 'parametros' de la base de datos.
+     * Este método ejecuta una consulta SQL para obtener todos los registros de la tabla 'parametros',
+     * y luego crea una lista de objetos {@link Parametro} con la información recuperada.
      * 
-     * @return una lista de objetos Parametro
+     * @return Una lista de objetos {@link Parametro}, representando todos los parámetros registrados.
      */
     public ArrayList<Parametro> obtenerTodosLosParametros() {
         ArrayList<Parametro> lista = new ArrayList<>();
@@ -38,13 +41,19 @@ public class ParametroDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println(" Error al consultar los parámetros: " + e.getMessage());
+            System.out.println("Error al consultar los parámetros: " + e.getMessage());
         }
 
         return lista;
     }
     
-    
+    /**
+     * Obtiene un parámetro de la base de datos por su ID.
+     * Este método ejecuta una consulta SQL con un parámetro dinámico (ID) para obtener el parámetro correspondiente.
+     * 
+     * @param id El ID del parámetro a recuperar de la base de datos.
+     * @return Un objeto {@link Parametro} con la información del parámetro correspondiente al ID.
+     */
     public Parametro obtenerParametroPorId(int id) {
         Parametro parametro = null;
         String sql = "SELECT * FROM parametros WHERE id = ?";
@@ -55,6 +64,7 @@ public class ParametroDAO {
         ) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
+            
             if (rs.next()) {
                 int idParametro = rs.getInt("id");
                 String nombre = rs.getString("nombre");
@@ -67,7 +77,4 @@ public class ParametroDAO {
 
         return parametro;
     }
-
-    
-    
 }

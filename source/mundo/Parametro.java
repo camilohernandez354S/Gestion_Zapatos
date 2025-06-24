@@ -1,29 +1,27 @@
 package mundo;
 
 /**
- * Representa un parámetro en el sistema, como un color, marca, talla, etc.
- * Este parámetro está vinculado a un tema.
- * Ejemplo: nombre = "Rojo", "Nike", etc.
+ * La clase {@code Parametro} representa un parámetro en el sistema.
+ * Los parámetros están vinculados a un tema y se utilizan para almacenar valores como 
+ * colores, marcas, tallas, etc.
+ * <p>
+ * Ejemplos de parámetros pueden ser valores como "Rojo", "Nike", etc.
+ * </p>
  */
 public class Parametro {
 
-    // Identificador único del parámetro (clave primaria)
+    // Id del parámetro
     private int id;
 
-    // Nombre del parámetro (ejemplo: "Rojo", "Nike", etc.)
+    // Nombre del parámetro ("Rojo", "Nike")
     private String nombre;
 
-    /**
-     * Constructor vacío (recomendado para usar con JDBC)
-     */
-    public Parametro() {
-    }
 
     /**
-     * Constructor con todos los campos
+     * Constructor de la clase {@code Parametro} con parámetros.
      * 
-     * @param id     Identificador del parámetro
-     * @param nombre Nombre del parámetro
+     * @param id     El identificador único del parámetro.
+     * @param nombre El nombre del parámetro, como "Rojo", "Nike".
      */
     public Parametro(int id, String nombre) {
         this.id = id;
@@ -33,43 +31,45 @@ public class Parametro {
     // Métodos Getters y Setters
 
     /**
-     * Obtiene el ID del parámetro
+     * Obtiene el ID del parámetro.
      * 
-     * @return id
+     * @return El ID del parámetro.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Establece el ID del parámetro
+     * Establece el ID del parámetro.
      * 
-     * @param id nuevo ID
+     * @param id El nuevo ID del parámetro.
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Obtiene el nombre del parámetro
+     * Obtiene el nombre del parámetro.
      * 
-     * @return nombre
+     * @return El nombre del parámetro, como "Rojo", "Nike"
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * Establece el nombre del parámetro
+     * Establece el nombre del parámetro.
      * 
-     * @param nombre nuevo nombre
+     * @param nombre El nuevo nombre del parámetro.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Devuelve el nombre como representación del objeto (útil para combos)
+     * Representa el parámetro como una cadena (utilizado en controles gráficos como combo box).
+     * 
+     * @return El nombre del parámetro.
      */
     @Override
     public String toString() {
