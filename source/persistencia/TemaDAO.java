@@ -43,4 +43,69 @@ public class TemaDAO {
 
         return lista;
     }
+    
+    public boolean insertarTema(Tema tema) {
+    	String sql = """
+    			INSERT INTO tema (id, nombre)
+    			VALUES (?, ?)
+    			""";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+    		PreparedStatement stmt = conn.prepareStatement(sql);
+    	){
+    		stmt.setInt(1, tema.getId());
+    		stmt.setString(2, tema.getNombre());
+    		
+    		int filas = stmt.executeUpdate();
+    		
+    		return filas > 0;
+    	} catch (SQLException e) {
+    		System.out.println("Error al insertar un tema: " + e.getMessage());
+    		return false;
+    	}
+    	
+    }
+    
+    public static boolean eliminarTema(int id) {
+    	String sql = "DELETE FROM zapatillas WHERE id = ?";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+    		PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, id);
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+    		
+    	} catch (SQLException e) {
+    		System.out.println("Error al eliminar el tema: " + e.getMessage());
+    		return false;
+    	}
+    	
+    }
+    
+    public static boolean actualizarTema(Tema t) {
+    	String sql = """
+    			UPDATE tema
+    			SET id = ?, nombre = ?
+    			WHERE id
+    			""";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+    		PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, t.getId());
+    		stmt.setString(2, t.getNombre());
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+    	} catch (SQLException e) {
+    		System.out.println("Error al actualizar el tema: " + e.getMessage());
+    		return false;
+    	}
+    }
 }
+
