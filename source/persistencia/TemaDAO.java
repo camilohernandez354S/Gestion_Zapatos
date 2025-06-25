@@ -97,6 +97,7 @@ public class TemaDAO {
     		PreparedStatement stmt = conn.prepareStatement(sql);
     	) {
     		stmt.setString(1, t.getNombre());
+    		stmt.setInt(2, t.getId());
     		
     		int filas = stmt.executeUpdate();
     		return filas > 0;

@@ -56,7 +56,7 @@ public class ParametroDAO {
     		Connection conn = ConexionDB.obtenerConexion();
     		PreparedStatement stmt = conn.prepareStatement(sql);
     	) {
-    		stmt.setString(2, parametro.getNombre());
+    		stmt.setString(1, parametro.getNombre());
     		
     		int filas = stmt.executeUpdate();
     		
@@ -99,6 +99,7 @@ public class ParametroDAO {
         	PreparedStatement stmt = conn.prepareStatement(sql);
     	) {
     		stmt.setString(1, p.getNombre());
+    		stmt.setInt(2, p.getId());
     		
     		int filas = stmt.executeUpdate();
     		return filas > 0;
