@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `parametros`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `parametros` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) DEFAULT NULL,
+  `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `tema`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tema` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) DEFAULT NULL,
+  `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -103,21 +103,24 @@ DROP TABLE IF EXISTS `zapatillas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `zapatillas` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `id_color` int DEFAULT NULL,
   `id_talla` int DEFAULT NULL,
   `id_genero` int DEFAULT NULL,
   `id_tipo` int DEFAULT NULL,
   `id_marca` int DEFAULT NULL,
   `Foto` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `id_color` (`id_color`),
   KEY `id_talla` (`id_talla`),
   KEY `id_genero` (`id_genero`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_marca` (`id_marca`),
+  CONSTRAINT `zapatillas_ibfk_1` FOREIGN KEY (`id_color`) REFERENCES `tema_parametros` (`id`),
   CONSTRAINT `zapatillas_ibfk_2` FOREIGN KEY (`id_talla`) REFERENCES `tema_parametros` (`id`),
   CONSTRAINT `zapatillas_ibfk_3` FOREIGN KEY (`id_genero`) REFERENCES `tema_parametros` (`id`),
   CONSTRAINT `zapatillas_ibfk_4` FOREIGN KEY (`id_tipo`) REFERENCES `tema_parametros` (`id`),
   CONSTRAINT `zapatillas_ibfk_5` FOREIGN KEY (`id_marca`) REFERENCES `tema_parametros` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +129,7 @@ CREATE TABLE `zapatillas` (
 
 LOCK TABLES `zapatillas` WRITE;
 /*!40000 ALTER TABLE `zapatillas` DISABLE KEYS */;
+INSERT INTO `zapatillas` VALUES (33,NULL,11,24,25,35,'C:\\Users\\Kevin Prada\\PROYECTOS SENA\\Gestion_Zapatos\\data\\Imagenes\\ASICS\\U-ASICS-VOLEIBOL.jpeg'),(34,NULL,13,22,26,37,'C:\\Users\\Kevin Prada\\PROYECTOS SENA\\Gestion_Zapatos\\data\\Imagenes\\ADIDAS\\M-ADIDAS-BALONCESTO.jpeg'),(35,NULL,5,23,27,37,'C:\\Users\\Kevin Prada\\PROYECTOS SENA\\Gestion_Zapatos\\data\\Imagenes\\ADIDAS\\F-ADIDAS-FÚTBOL.jpg'),(36,NULL,16,22,32,38,'C:\\Users\\Kevin Prada\\PROYECTOS SENA\\Gestion_Zapatos\\data\\Imagenes\\NIKE\\M-NIKE-PING PONG.jpg'),(37,NULL,15,22,34,40,'C:\\Users\\Kevin Prada\\PROYECTOS SENA\\Gestion_Zapatos\\data\\Imagenes\\NEW BALANCE\\M-NEW BALANCE-RUNNING.jpeg'),(38,NULL,19,24,25,35,'C:\\Users\\Kevin Prada\\PROYECTOS SENA\\Gestion_Zapatos\\data\\Imagenes\\ASICS\\F-ASICS-FÚTBOL2.jpeg');
 /*!40000 ALTER TABLE `zapatillas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -138,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-22 16:49:59
+-- Dump completed on 2025-06-24 10:03:19

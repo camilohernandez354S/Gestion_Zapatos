@@ -63,7 +63,12 @@ public class Parametro {
      * @param nombre El nuevo nombre del parámetro.
      */
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        
+    	if (nombre != null && !nombre.trim().isEmpty()) {
+    		this.nombre = nombre;
+    	} else {
+    		throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
+    	}
     }
 
     /**

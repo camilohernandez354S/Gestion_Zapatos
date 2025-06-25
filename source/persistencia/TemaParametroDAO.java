@@ -51,4 +51,61 @@ public class TemaParametroDAO {
 
         return lista;
     }
+    
+    public boolean insertarParametroPorTema(int idTema, int idParametro) {
+    	String sql = "INSERT INTO tema_parametros (id_tema, id_parametro) VALUES (?, ?)";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, idTema);
+    		stmt.setInt(2, idParametro);
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+    	} catch (SQLException e) {
+    		System.out.println("Error al insertar el parámetro en el tema: " + e.getMessage());
+    		return false;
+    	}
+    }
+    
+    public boolean eliminarParametroPorTema(int idTema, int idParametro) {
+    	String sql = "DELETE FROM tema_parametros WHERE id_tema = ? AND id_parametro = ?";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, idTema);
+    		stmt.setInt(2, idParametro);
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+
+    	} catch (SQLException e) {
+    		System.out.println("Error al eliminar el parámetro del tema" + e.getMessage());
+    		return false;
+    	}
+    }
+    
+    public boolean actualizarParametroPorTema(int idTema, int idParametroNuevo, int idParametroViejo) {
+    	String sql = "UPDATE tema_parametros SET id_parametro = ? WHERE id_tema = ? AND id_parametro = ?";
+    	
+    	try (
+    		Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+    	) {
+    		stmt.setInt(1, idParametroNuevo);
+    		stmt.setInt(2, idTema);
+    		stmt.setInt(3, idParametroViejo);
+    		
+    		int filas = stmt.executeUpdate();
+    		return filas > 0;
+    	} catch (SQLException e) {
+    		System.out.println("Error al actualizar el parámetro del tema: " + e.getMessage());
+    		return false;
+    	}
+    	
+    }
 }
