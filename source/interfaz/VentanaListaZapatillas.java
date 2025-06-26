@@ -55,7 +55,7 @@ public class VentanaListaZapatillas extends JPanel {
         panelBotones.add(btnOrdenarTipo);
 
         // Definición de la tabla y su modelo
-        String[] columnas = {"Numero", "ID real", "Talla", "Género", "Tipo", "Marca", "Foto", "Eliminar", "Editar"};
+        String[] columnas = {"Numero", "ID real", "Talla", "Género", "Tipo", "Marca", "Eliminar", "Editar"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
             private static final long serialVersionUID = 1L;
             @Override
