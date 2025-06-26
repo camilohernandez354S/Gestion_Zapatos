@@ -66,7 +66,7 @@ public class TemaDAO {
     	
     }
     
-    public static boolean eliminarTema(int id) {
+    public boolean eliminarTema(int id) {
     	String sql = "DELETE FROM tema WHERE id = ?";
     	
     	try (
@@ -85,7 +85,7 @@ public class TemaDAO {
     	
     }
     
-    public static boolean actualizarTema(Tema t) {
+    public boolean actualizarTema(Tema t) {
     	String sql = """
     			UPDATE tema
     			SET nombre = ?

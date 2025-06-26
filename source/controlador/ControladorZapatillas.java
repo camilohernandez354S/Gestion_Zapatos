@@ -2,12 +2,8 @@ package controlador;
 
 import java.util.ArrayList;
 
-import mundo.Parametro;
-import mundo.Tema;
+
 import mundo.Zapatilla;
-import persistencia.ParametroDAO;
-import persistencia.TemaDAO;
-import persistencia.TemaParametroDAO;
 import persistencia.ZapatillaDAO;
 
 /**
@@ -17,8 +13,6 @@ import persistencia.ZapatillaDAO;
  */
 public class ControladorZapatillas {
 
-    private TemaDAO temaDAO;
-    private TemaParametroDAO temaParametroDAO;
     private ZapatillaDAO zapatillaDAO;
 
     /**
@@ -26,31 +20,7 @@ public class ControladorZapatillas {
      * El controlador se encarga de interactuar con los DAOs y facilita las operaciones sobre los datos.
      */
     public ControladorZapatillas() {
-        temaDAO = new TemaDAO();
-        new ParametroDAO();
-        temaParametroDAO = new TemaParametroDAO();
         zapatillaDAO = new ZapatillaDAO();
-    }
-
-    /**
-     * Obtiene todos los temas disponibles en el sistema (como "Color", "Talla", "Marca", etc.).
-     * Este método interactúa con el DAO de temas para obtener la lista completa de temas.
-     * 
-     * @return Lista de temas disponibles en el sistema.
-     */
-    public ArrayList<Tema> obtenerTemas() {
-        return temaDAO.obtenerTodosLosTemas();
-    }
-
-    /**
-     * Obtiene todos los parámetros asociados a un tema específico. 
-     * Por ejemplo, para el tema "Color", devuelve los diferentes colores disponibles.
-     * 
-     * @param idTema ID del tema para el cual se desean obtener los parámetros.
-     * @return Lista de parámetros asociados al tema indicado.
-     */
-    public ArrayList<Parametro> obtenerParametrosPorTema(int idTema) {
-        return temaParametroDAO.obtenerParametrosPorTema(idTema);
     }
 
     /**
@@ -97,17 +67,6 @@ public class ControladorZapatillas {
         return ZapatillaDAO.actualizarZapatilla(z);
     }
 
-    /**
-     * Obtiene un parámetro específico dado su ID. 
-     * Esto es útil para obtener el nombre de un parámetro (como el nombre de una talla o color) dado su ID.
-     * 
-     * @param id ID del parámetro que se desea obtener.
-     * @return El objeto Parametro correspondiente al ID proporcionado.
-     */
-    public Parametro obtenerParametroPorId(int id) {
-        ParametroDAO dao = new ParametroDAO();
-        return dao.obtenerParametroPorId(id);
-    }
 
     /**
      * Busca y devuelve una zapatilla por su ID.

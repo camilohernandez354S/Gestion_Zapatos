@@ -103,23 +103,20 @@ DROP TABLE IF EXISTS `zapatillas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `zapatillas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_color` int DEFAULT NULL,
   `id_talla` int DEFAULT NULL,
   `id_genero` int DEFAULT NULL,
   `id_tipo` int DEFAULT NULL,
   `id_marca` int DEFAULT NULL,
   `Foto` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_color` (`id_color`),
   KEY `id_talla` (`id_talla`),
   KEY `id_genero` (`id_genero`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_marca` (`id_marca`),
-  CONSTRAINT `zapatillas_ibfk_1` FOREIGN KEY (`id_color`) REFERENCES `tema_parametros` (`id`),
-  CONSTRAINT `zapatillas_ibfk_2` FOREIGN KEY (`id_talla`) REFERENCES `tema_parametros` (`id`),
-  CONSTRAINT `zapatillas_ibfk_3` FOREIGN KEY (`id_genero`) REFERENCES `tema_parametros` (`id`),
-  CONSTRAINT `zapatillas_ibfk_4` FOREIGN KEY (`id_tipo`) REFERENCES `tema_parametros` (`id`),
-  CONSTRAINT `zapatillas_ibfk_5` FOREIGN KEY (`id_marca`) REFERENCES `tema_parametros` (`id`)
+  CONSTRAINT `zapatillas_ibfk_1` FOREIGN KEY (`id_talla`) REFERENCES `tema_parametros` (`id`),
+  CONSTRAINT `zapatillas_ibfk_2` FOREIGN KEY (`id_genero`) REFERENCES `tema_parametros` (`id`),
+  CONSTRAINT `zapatillas_ibfk_3` FOREIGN KEY (`id_tipo`) REFERENCES `tema_parametros` (`id`),
+  CONSTRAINT `zapatillas_ibfk_4` FOREIGN KEY (`id_marca`) REFERENCES `tema_parametros` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
