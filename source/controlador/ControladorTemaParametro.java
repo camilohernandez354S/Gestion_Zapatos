@@ -35,4 +35,8 @@ public class ControladorTemaParametro {
     public boolean asociarTemaParametro(int idTema, int idParametro) {
     	return temaParametroDAO.insertarParametroPorTema(idTema, idParametro);
     }
+    
+    public ArrayList<Object[]> obtenerRelacionesPorTema() {
+        return temaParametroDAO.obtenerRelacionesPorTema();
+    }
 }

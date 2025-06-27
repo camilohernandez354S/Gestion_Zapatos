@@ -108,4 +108,32 @@ public class TemaParametroDAO {
     	}
     	
     }
+    
+    public ArrayList<Object[]> obtenerRelacionesPorTema() {
+        ArrayList<Object[]> relaciones = new ArrayList<>();
+        
+        // Consulta SQL para obtener las relaciones entre Tema y Parametro con los nombres
+        String sql = "SELECT t.nombre AS tema_nombre, p.nombre AS parametro_nombre " +
+                     "FROM tema t " +
+                     "JOIN tema_parametros tp ON t.id = tp.id_tema " +
+                     "JOIN parametros p ON tp.id_parametro = p.id";
+
+        try (
+            Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+        ) {
+            // Recorrer el resultado de la consulta
+            while (rs.next()) {
+                String nombreTema = rs.getString("tema_nombre");
+                String nombreParametro = rs.getString("parametro_nombre");
+                relaciones.add(new Object[]{nombreTema, nombreParametro});  // Agregar la relación a la lista
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las relaciones entre Tema y Parámetro: " + e.getMessage());
+        }
+
+        return relaciones;  // Retornar la lista con todas las relaciones
+    }
+    
 }
