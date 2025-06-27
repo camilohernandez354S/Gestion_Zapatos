@@ -39,20 +39,20 @@ public class VentanaPrincipalDashboard extends JFrame {
 
         // Panel lateral (menú)
         JPanel menuLateral = new JPanel();
-        menuLateral.setLayout(new GridLayout(3, 1, 10, 10));
+        menuLateral.setLayout(new GridLayout(4, 1, 10, 10));
         menuLateral.setBackground(new Color(240, 240, 240));
-        menuLateral.setPreferredSize(new Dimension(250, 0));
+        menuLateral.setPreferredSize(new Dimension(350, 0));
         menuLateral.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 
         JButton btnRegistrar = crearBoton(" Registrar Zapatilla", new Color(76, 175, 80));
         JButton btnVer = crearBoton(" Ver Zapatillas", new Color(255, 152, 0));
-        JButton btnSalir = crearBoton(" Salir", new Color(244, 67, 54));
         JButton btnTemaParametro = crearBoton(" Agregar Tema-Parametro", new Color(103, 58, 183));
+        JButton btnSalir = crearBoton(" Salir", new Color(244, 67, 54));
 
         menuLateral.add(btnRegistrar);
         menuLateral.add(btnVer);
-        menuLateral.add(btnSalir);
         menuLateral.add(btnTemaParametro);
+        menuLateral.add(btnSalir);
         // Panel central 
         panelCentral = new JPanel();
         panelCentral.setLayout(new BorderLayout());
@@ -92,7 +92,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         boton.setBackground(colorFondo);
         boton.setForeground(Color.WHITE);
-        boton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        boton.setBorder(BorderFactory.createEmptyBorder(45, 30, 45, 30));
         return boton;
     }
 
