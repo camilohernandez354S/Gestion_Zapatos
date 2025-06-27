@@ -53,14 +53,14 @@ public class VentanaPrincipalDashboard extends JFrame {
         menuLateral.add(btnVer);
         menuLateral.add(btnTemaParametro);
         menuLateral.add(btnSalir);
+
         // Panel central 
         panelCentral = new JPanel();
         panelCentral.setLayout(new BorderLayout());
         panelCentral.setBackground(Color.WHITE);
 
         panelLista = new VentanaListaZapatillas();
-
-        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(panelLista);
+        formulario = new VentanaInsertarZapatilla(panelLista);
         formulario.prepararParaAgregar(); // 🔁 CORRECCIÓN: limpia el formulario al iniciar
 
         // Acciones de los botones
@@ -141,7 +141,6 @@ public class VentanaPrincipalDashboard extends JFrame {
         labelImagen.setVerticalAlignment(JLabel.CENTER);
 
         // Ruta relativa al proyecto (asegúrate de que el archivo esté en /data/Imagenes/)
-
         ImageIcon icono = new ImageIcon("data\\Imagenes\\LogoPrincipal.png");
 
         Image imagen = icono.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
@@ -152,14 +151,16 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral.repaint();
     }
     
+    /**
+     * Muestra la ventana de Agregar Tema-Parametro.
+     * Se carga y actualiza la interfaz con los temas y parámetros disponibles.
+     */
     public void mostrarTemaParametro() {
-    	panelCentral.removeAll();
-    	VentanaInsertarTemaParametro ventanaTemaParametro = new VentanaInsertarTemaParametro();
-    	ventanaTemaParametro.cargarDatos();
-    	panelCentral.add(ventanaTemaParametro, BorderLayout.CENTER);
-    	panelCentral.revalidate();
-    	panelCentral.repaint();
-    	
+        panelCentral.removeAll();
+        VentanaInsertarTemaParametro ventanaTemaParametro = new VentanaInsertarTemaParametro();
+        ventanaTemaParametro.cargarDatos(); // Carga los datos de los temas y parámetros dinámicamente
+        panelCentral.add(ventanaTemaParametro, BorderLayout.CENTER);
+        panelCentral.revalidate();
+        panelCentral.repaint();
     }
-
 }

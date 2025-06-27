@@ -186,6 +186,15 @@ public class VentanaInsertarZapatilla extends JPanel {
             combo.addItem(p);
         }
     }
+    
+    public void recargarTemasYParametros() {
+        cargarParametros(); // Este método recarga los parámetros
+        cargarCombo(comboTalla, idTalla);  // Recarga el combo de Talla
+        cargarCombo(comboGenero, idGenero);  // Recarga el combo de Género
+        cargarCombo(comboTipo, idTipo);  // Recarga el combo de Tipo
+        cargarCombo(comboMarca, idMarca);  // Recarga el combo de Marca
+    }
+
 
     /**
      * Guarda una nueva zapatilla en el sistema.

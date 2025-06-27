@@ -2,6 +2,7 @@ package controlador;
 
 import persistencia.TemaDAO;
 import mundo.Tema;
+import java.util.List;
 import java.util.ArrayList;
 
 public class ControladorTema {
@@ -28,4 +29,8 @@ public class ControladorTema {
 		Tema tema = new Tema(id, nombre);
 		return temaDAO.actualizarTema(tema);
 	}
+	
+	public List<Tema> obtenerTemas() {
+        return temaDAO.obtenerTodosLosTemas();
+    }
 }

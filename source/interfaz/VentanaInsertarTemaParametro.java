@@ -18,7 +18,7 @@ public class VentanaInsertarTemaParametro extends JPanel {
 
     private JTable tablaTemas;
     private JTable tablaParametros;
-    private JTable tablaTemaParametros;
+    private JTable tablaTemaParametros;  // Tabla para mostrar las relaciones
 
     private ControladorTemaParametro controladorTemaParametro;
     private ControladorTema controladorTema;
@@ -71,7 +71,7 @@ public class VentanaInsertarTemaParametro extends JPanel {
         JScrollPane scrollParametros = new JScrollPane(tablaParametros);
         panelTablas.add(scrollParametros);
 
-        // Panel de Tema-Parametro
+        // Panel de Tema-Parametro (Para mostrar las relaciones)
         tablaTemaParametros = new JTable();
         customizeTable(tablaTemaParametros);
         JScrollPane scrollTemaParametros = new JScrollPane(tablaTemaParametros);
@@ -119,8 +119,8 @@ public class VentanaInsertarTemaParametro extends JPanel {
         table.setFillsViewportHeight(true);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.setRowHeight(30);
-        table.setSelectionBackground(new Color(33, 150, 243));
-        table.setSelectionForeground(Color.WHITE);
+        table.setSelectionBackground(new Color(0, 123, 255));
+        table.setSelectionForeground(Color.BLACK);
         table.setDefaultEditor(Object.class, null);  // Deshabilitar edición directa en la tabla
 
         // Cambiar los bordes de la tabla para hacerlo más moderno
@@ -165,6 +165,9 @@ public class VentanaInsertarTemaParametro extends JPanel {
 
         mostrarTemasEnTabla(temas);
         mostrarParametrosEnTabla(parametros);
+
+        // Cargar las relaciones entre tema y parámetro
+        mostrarRelacionesEnTabla();
     }
 
     private void mostrarTemasEnTabla(ArrayList<Tema> temas) {
@@ -191,6 +194,22 @@ public class VentanaInsertarTemaParametro extends JPanel {
         tablaParametros.setModel(modelo);
     }
 
+    // Mostrar las relaciones Tema-Parametro en la tabla
+    private void mostrarRelacionesEnTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Tema");
+        modelo.addColumn("ID Parámetro");
+
+        // Obtén las relaciones desde el controlador
+        ArrayList<Object[]> relaciones = controladorTemaParametro.obtenerRelacionesPorTema();
+
+        for (Object[] relacion : relaciones) {
+            modelo.addRow(relacion);
+        }
+
+        tablaTemaParametros.setModel(modelo);
+    }
+
     public void agregarTema() {
         String nombreTema = JOptionPane.showInputDialog("Ingrese el nombre del tema");
 
@@ -203,7 +222,7 @@ public class VentanaInsertarTemaParametro extends JPanel {
 
                 if (exito) {
                     JOptionPane.showMessageDialog(this, "Tema agregado correctamente");
-                    cargarDatos();
+                    cargarDatos();  // Recargar los datos en la tabla
                 } else {
                     JOptionPane.showMessageDialog(this, "Error al agregar el tema");
                 }
