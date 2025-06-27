@@ -16,9 +16,8 @@ public class ControladorTema {
 		return temaDAO.obtenerTodosLosTemas();
 	}
 	
-	public boolean insertarTema(String nombre) {
-		Tema nuevoTema = new Tema(0, nombre);
-		return temaDAO.insertarTema(nuevoTema);
+	public boolean insertarTema(Tema tema) {
+		return temaDAO.insertarTema(tema);
 	}
 	
 	public boolean eliminarTema(int id) {

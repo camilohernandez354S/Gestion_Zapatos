@@ -31,4 +31,8 @@ public class ControladorTemaParametro {
     public boolean actualizarParametroPorTema(int idTema, int idParametroNuevo, int idParametroViejo) {
     	return temaParametroDAO.actualizarParametroPorTema(idTema, idParametroNuevo, idParametroViejo);
     }
+    
+    public boolean asociarTemaParametro(int idTema, int idParametro) {
+    	return temaParametroDAO.insertarParametroPorTema(idTema, idParametro);
+    }
 }

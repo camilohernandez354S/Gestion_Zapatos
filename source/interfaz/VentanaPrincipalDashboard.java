@@ -67,6 +67,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         btnRegistrar.addActionListener(e -> mostrarRegistrar());
         btnVer.addActionListener(e -> mostrarLista());
         btnSalir.addActionListener(e -> System.exit(0));
+        btnTemaParametro.addActionListener(e -> mostrarTemaParametro());
 
         // Añadir todo al frame
         add(encabezado, BorderLayout.NORTH);
@@ -149,6 +150,16 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral.add(labelImagen, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();
+    }
+    
+    public void mostrarTemaParametro() {
+    	panelCentral.removeAll();
+    	VentanaInsertarTemaParametro ventanaTemaParametro = new VentanaInsertarTemaParametro();
+    	ventanaTemaParametro.cargarDatos();
+    	panelCentral.add(ventanaTemaParametro, BorderLayout.CENTER);
+    	panelCentral.revalidate();
+    	panelCentral.repaint();
+    	
     }
 
 }

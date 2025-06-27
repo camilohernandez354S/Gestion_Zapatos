@@ -2,6 +2,7 @@ package controlador;
 
 import persistencia.ParametroDAO;
 import mundo.Parametro;
+import java.util.ArrayList;
 
 public class ControladorParametro {
 	
@@ -15,9 +16,12 @@ public class ControladorParametro {
 	   return parametroDAO.obtenerParametroPorId(id);
 	}
 	
-	public boolean insertarParametro(String nombre) {
-		Parametro nuevoParametro = new Parametro(0, nombre);
-		return parametroDAO.insertarParametro(nuevoParametro);
+	public ArrayList<Parametro> obtenerTodosLosParametros() {
+		return parametroDAO.obtenerTodosLosParametros();
+	}
+	
+	public boolean insertarParametro(Parametro parametro) {
+		return parametroDAO.insertarParametro(parametro);
 	}
 	
 	public boolean eliminarParametro(int id) {
