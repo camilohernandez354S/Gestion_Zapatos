@@ -28,4 +28,8 @@ public class ControladorTema {
 		Tema tema = new Tema(id, nombre);
 		return temaDAO.actualizarTema(tema);
 	}
+	
+	public Tema obtenerTemaPorId(int id) {
+		return temaDAO.obtenerTemaPorId(id);
+	}
 }

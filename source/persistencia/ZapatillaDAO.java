@@ -92,23 +92,17 @@ public class ZapatillaDAO {
      */
     
     public static boolean eliminarZapatilla(int id) {
-    	String sql = "DELETE FROM zapatillas WHERE id = ?";
-    	
-    	try (
-    		Connection conn = ConexionDB.obtenerConexion();
-    		PreparedStatement stmt = conn.prepareStatement(sql);
-    			
-    	) {
-    		stmt.setInt(1, id);
-    		
-    		int filas = stmt.executeUpdate();
-    		return filas > 0;
- 
-    	} catch (SQLException e){
-			System.out.println("❌ Error al eliminar zapatilla: " + e.getMessage());
-    		return false;
-    	}
-    
+        System.out.println("SQL DELETE con ID: " + id);  // Depurar el ID
+        String sql = "DELETE FROM zapatillas WHERE id = ?";
+        try (Connection conn = ConexionDB.obtenerConexion();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);  // Verifica que el ID sea el correcto
+            int filas = stmt.executeUpdate();
+            return filas > 0;  // Retorna true si la eliminación fue exitosa
+        } catch (SQLException e) {
+            System.out.println("❌ Error al eliminar zapatilla: " + e.getMessage());
+            return false;
+        }
     }
     
     /**
