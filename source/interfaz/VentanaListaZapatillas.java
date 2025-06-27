@@ -1,6 +1,7 @@
 package interfaz;
 
 import controlador.ControladorZapatillas;
+import controlador.ControladorParametro;
 import mundo.Zapatilla;
 
 import javax.swing.*;
@@ -21,7 +22,9 @@ public class VentanaListaZapatillas extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private ControladorZapatillas controlador;
+    private ControladorZapatillas controladorZapatillas;
+    private ControladorParametro controladorParametro;
+    
     private JTable tabla;
     private JLabel imagenLabel;
     private ArrayList<Zapatilla> zapatillasOriginal;
@@ -30,7 +33,8 @@ public class VentanaListaZapatillas extends JPanel {
      * Constructor de la clase, inicializa la ventana de la lista de zapatillas y configura los componentes gráficos.
      */
     public VentanaListaZapatillas() {
-        controlador = new ControladorZapatillas();
+        controladorZapatillas = new ControladorZapatillas();
+        controladorParametro = new ControladorParametro();
         VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(this);
 
         setLayout(new BorderLayout());
@@ -119,11 +123,11 @@ public class VentanaListaZapatillas extends JPanel {
         });
 
         // Configuración de los botones "Eliminar" y "Editar" para cada fila
-        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controlador, tabla, this));
-        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controlador, tabla, this));
+        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controladorZapatillas, tabla, this));
+        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controladorZapatillas, tabla, this));
 
-        tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controlador, tabla, formulario));
-        tabla.getColumn("Editar").setCellEditor(new BotonEditar(controlador, tabla, formulario));
+        tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controladorZapatillas, tabla, formulario));
+        tabla.getColumn("Editar").setCellEditor(new BotonEditar(controladorZapatillas, tabla, formulario));
 
         // Cargar las zapatillas al iniciar la ventana
         cargarZapatillas();
@@ -131,19 +135,19 @@ public class VentanaListaZapatillas extends JPanel {
         // Acciones de los botones de ordenar
         btnOrdenarTalla.addActionListener(e -> {
             ArrayList<Zapatilla> ordenadas = new ArrayList<>(zapatillasOriginal);
-            ordenadas.sort(Comparator.comparing(a -> controlador.obtenerParametroPorId(a.getIdTalla()).getNombre()));
+            ordenadas.sort(Comparator.comparing(a -> controladorParametro.obtenerParametroPorId(a.getIdTalla()).getNombre()));
             mostrarZapatillasEnTabla(ordenadas);
         });
 
         btnOrdenarMarca.addActionListener(e -> {
             ArrayList<Zapatilla> ordenadas = new ArrayList<>(zapatillasOriginal);
-            ordenadas.sort(Comparator.comparing(a -> controlador.obtenerParametroPorId(a.getIdMarca()).getNombre()));
+            ordenadas.sort(Comparator.comparing(a -> controladorParametro.obtenerParametroPorId(a.getIdMarca()).getNombre()));
             mostrarZapatillasEnTabla(ordenadas);
         });
 
         btnOrdenarTipo.addActionListener(e -> {
             ArrayList<Zapatilla> ordenadas = new ArrayList<>(zapatillasOriginal);
-            ordenadas.sort(Comparator.comparing(a -> controlador.obtenerParametroPorId(a.getIdTipo()).getNombre()));
+            ordenadas.sort(Comparator.comparing(a -> controladorParametro.obtenerParametroPorId(a.getIdTipo()).getNombre()));
             mostrarZapatillasEnTabla(ordenadas);
         });
     }
@@ -153,7 +157,7 @@ public class VentanaListaZapatillas extends JPanel {
      * Obtiene las zapatillas del controlador y las muestra en la tabla.
      */
     public void cargarZapatillas() {
-        zapatillasOriginal = controlador.obtenerZapatillas();
+        zapatillasOriginal = controladorZapatillas.obtenerZapatillas();
         mostrarZapatillasEnTabla(zapatillasOriginal);
     }
 
@@ -168,10 +172,10 @@ public class VentanaListaZapatillas extends JPanel {
         modelo.setRowCount(0);
         for (int i = 0; i < lista.size(); i++) {
             Zapatilla z = lista.get(i);
-            String talla = controlador.obtenerParametroPorId(z.getIdTalla()).getNombre();
-            String genero = controlador.obtenerParametroPorId(z.getIdGenero()).getNombre();
-            String tipo = controlador.obtenerParametroPorId(z.getIdTipo()).getNombre();
-            String marca = controlador.obtenerParametroPorId(z.getIdMarca()).getNombre();
+            String talla = controladorParametro.obtenerParametroPorId(z.getIdTalla()).getNombre();
+            String genero = controladorParametro.obtenerParametroPorId(z.getIdGenero()).getNombre();
+            String tipo = controladorParametro.obtenerParametroPorId(z.getIdTipo()).getNombre();
+            String marca = controladorParametro.obtenerParametroPorId(z.getIdMarca()).getNombre();
 
             modelo.addRow(new Object[]{
                     (i + 1),             // Número de fila

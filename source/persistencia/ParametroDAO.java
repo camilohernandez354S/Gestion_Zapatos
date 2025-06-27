@@ -68,7 +68,7 @@ public class ParametroDAO {
     	}
     }
     
-    public static boolean eliminarParametro(int id) {
+    public boolean eliminarParametro(int id) {
     	String sql = "DELETE FROM parametros WHERE id = ?";
     	
     	try (
@@ -87,7 +87,7 @@ public class ParametroDAO {
     	
     }
     
-    public static boolean actualizarParametro(Parametro p) {
+    public boolean actualizarParametro(Parametro p) {
     	String sql = """
     			UPDATE parametros
     			SET nombre = ?

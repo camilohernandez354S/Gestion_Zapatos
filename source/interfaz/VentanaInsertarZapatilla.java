@@ -1,6 +1,7 @@
 package interfaz;
 
 import controlador.ControladorZapatillas;
+import controlador.ControladorTemaParametro;
 import mundo.Parametro;
 import mundo.Zapatilla;
 
@@ -18,7 +19,8 @@ public class VentanaInsertarZapatilla extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private ControladorZapatillas controlador;
+    private ControladorZapatillas controladorZapatillas;
+    private ControladorTemaParametro controladorTemaParametro;
     private JComboBox<Parametro> comboTalla, comboGenero, comboTipo, comboMarca;
     private JTextField txtFoto;
     private JLabel previewImagen;
@@ -39,7 +41,8 @@ public class VentanaInsertarZapatilla extends JPanel {
      * @param panelLista Panel que contiene la lista de zapatillas
      */
     public VentanaInsertarZapatilla(VentanaListaZapatillas panelLista) {
-        this.controlador = new ControladorZapatillas();
+        this.controladorZapatillas = new ControladorZapatillas();
+        this.controladorTemaParametro = new ControladorTemaParametro();
         this.panelLista = panelLista;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -177,7 +180,7 @@ public class VentanaInsertarZapatilla extends JPanel {
      * @param idTema El ID del tema que se utilizará para obtener los parámetros.
      */
     private void cargarCombo(JComboBox<Parametro> combo, int idTema) {
-        ArrayList<Parametro> parametros = controlador.obtenerParametrosPorTema(idTema);
+        ArrayList<Parametro> parametros = controladorTemaParametro.obtenerParametrosPorTema(idTema);
         combo.removeAllItems();
         for (Parametro p : parametros) {
             combo.addItem(p);
@@ -196,7 +199,7 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         Zapatilla z = construirZapatillaDesdeFormulario(0);
 
-        boolean exito = controlador.insertarZapatilla(z);
+        boolean exito = controladorZapatillas.insertarZapatilla(z);
         if (exito) {
             JOptionPane.showMessageDialog(this, "Zapatilla guardada correctamente.");
 
@@ -224,7 +227,7 @@ public class VentanaInsertarZapatilla extends JPanel {
 
         Zapatilla z = construirZapatillaDesdeFormulario(idActual);
 
-        boolean actualizado = controlador.actualizarZapatilla(z);
+        boolean actualizado = controladorZapatillas.actualizarZapatilla(z);
         if (actualizado) {
             JOptionPane.showMessageDialog(this, "Zapatilla actualizada correctamente.");
             panelLista.cargarZapatillas();

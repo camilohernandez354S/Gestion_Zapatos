@@ -47,11 +47,12 @@ public class VentanaPrincipalDashboard extends JFrame {
         JButton btnRegistrar = crearBoton(" Registrar Zapatilla", new Color(76, 175, 80));
         JButton btnVer = crearBoton(" Ver Zapatillas", new Color(255, 152, 0));
         JButton btnSalir = crearBoton(" Salir", new Color(244, 67, 54));
+        JButton btnTemaParametro = crearBoton(" Agregar Tema-Parametro", new Color(103, 58, 183));
 
         menuLateral.add(btnRegistrar);
         menuLateral.add(btnVer);
         menuLateral.add(btnSalir);
-
+        menuLateral.add(btnTemaParametro);
         // Panel central 
         panelCentral = new JPanel();
         panelCentral.setLayout(new BorderLayout());
@@ -66,6 +67,7 @@ public class VentanaPrincipalDashboard extends JFrame {
         btnRegistrar.addActionListener(e -> mostrarRegistrar());
         btnVer.addActionListener(e -> mostrarLista());
         btnSalir.addActionListener(e -> System.exit(0));
+        btnTemaParametro.addActionListener(e -> mostrarTemaParametro());
 
         // Añadir todo al frame
         add(encabezado, BorderLayout.NORTH);
@@ -148,6 +150,16 @@ public class VentanaPrincipalDashboard extends JFrame {
         panelCentral.add(labelImagen, BorderLayout.CENTER);
         panelCentral.revalidate();
         panelCentral.repaint();
+    }
+    
+    public void mostrarTemaParametro() {
+    	panelCentral.removeAll();
+    	VentanaInsertarTemaParametro ventanaTemaParametro = new VentanaInsertarTemaParametro();
+    	ventanaTemaParametro.cargarDatos();
+    	panelCentral.add(ventanaTemaParametro, BorderLayout.CENTER);
+    	panelCentral.revalidate();
+    	panelCentral.repaint();
+    	
     }
 
 }
