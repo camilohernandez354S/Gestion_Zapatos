@@ -136,4 +136,22 @@ public class TemaParametroDAO {
         return relaciones;  // Retornar la lista con todas las relaciones
     }
     
+    public boolean eliminarRelacion(int idTema, int idParametro) {
+        String sql = "DELETE FROM tema_parametro WHERE id_tema = ? AND id_parametro = ?";
+
+        try (
+            Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, idTema);
+            stmt.setInt(2, idParametro);
+
+            int filas = stmt.executeUpdate();
+            return filas > 0;  // Si se eliminó al menos una fila, la operación fue exitosa
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar la relación: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }

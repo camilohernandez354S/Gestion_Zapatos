@@ -2,7 +2,6 @@ package controlador;
 
 import persistencia.TemaDAO;
 import mundo.Tema;
-import java.util.List;
 import java.util.ArrayList;
 
 public class ControladorTema {
@@ -30,13 +29,7 @@ public class ControladorTema {
 		return temaDAO.actualizarTema(tema);
 	}
 	
-<<<<<<< HEAD
-	public List<Tema> obtenerTemas() {
-        return temaDAO.obtenerTodosLosTemas();
-    }
-=======
 	public Tema obtenerTemaPorId(int id) {
 		return temaDAO.obtenerTemaPorId(id);
 	}
->>>>>>> feature/CRUDT-P
 }

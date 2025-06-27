@@ -39,4 +39,9 @@ public class ControladorTemaParametro {
     public ArrayList<Object[]> obtenerRelacionesPorTema() {
         return temaParametroDAO.obtenerRelacionesPorTema();
     }
+    
+    public boolean eliminarRelacion(int idTema, int idParametro) {
+        // Llamamos al DAO para eliminar la relación
+        return temaParametroDAO.eliminarRelacion(idTema, idParametro);
+    }
 }
