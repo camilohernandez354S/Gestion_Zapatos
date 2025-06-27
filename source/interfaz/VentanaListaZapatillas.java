@@ -24,6 +24,7 @@ public class VentanaListaZapatillas extends JPanel {
 
     private ControladorZapatillas controladorZapatillas;
     private ControladorParametro controladorParametro;
+    private VentanaInsertarZapatilla formulario;
     
     private JTable tabla;
     private JLabel imagenLabel;
@@ -35,7 +36,7 @@ public class VentanaListaZapatillas extends JPanel {
     public VentanaListaZapatillas() {
         controladorZapatillas = new ControladorZapatillas();
         controladorParametro = new ControladorParametro();
-        VentanaInsertarZapatilla formulario = new VentanaInsertarZapatilla(this);
+        formulario = new VentanaInsertarZapatilla(this);
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -64,7 +65,7 @@ public class VentanaListaZapatillas extends JPanel {
             private static final long serialVersionUID = 1L;
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 7 || column == 8;
+                return column == 6 || column == 7;
             }
         };
         tabla = new JTable(modelo);
@@ -94,6 +95,7 @@ public class VentanaListaZapatillas extends JPanel {
             }
         });
 
+        
         // Crear el panel central que contiene los botones de ordenación y la tabla
         JScrollPane scroll = new JScrollPane(tabla);
         JPanel panelCentral = new JPanel(new BorderLayout());
@@ -122,12 +124,13 @@ public class VentanaListaZapatillas extends JPanel {
             }
         });
 
-        // Configuración de los botones "Eliminar" y "Editar" para cada fila
-        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controladorZapatillas, tabla, this));
-        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controladorZapatillas, tabla, this));
 
-        tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controladorZapatillas, tabla, formulario));
-        tabla.getColumn("Editar").setCellEditor(new BotonEditar(controladorZapatillas, tabla, formulario));
+        tabla.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controladorZapatillas, tabla, "Zapatilla", this, null));
+        tabla.getColumn("Eliminar").setCellEditor(new BotonEliminar(controladorZapatillas, tabla, "Zapatilla", this, null));
+      
+        
+        tabla.getColumn("Editar").setCellRenderer(new BotonEditar(controladorZapatillas, tabla, "Zapatilla", formulario, null));
+        tabla.getColumn("Editar").setCellEditor(new BotonEditar(controladorZapatillas, tabla, "Zapatilla", formulario, null));
 
         // Cargar las zapatillas al iniciar la ventana
         cargarZapatillas();

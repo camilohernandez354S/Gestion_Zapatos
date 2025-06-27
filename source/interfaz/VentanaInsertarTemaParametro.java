@@ -18,7 +18,11 @@ public class VentanaInsertarTemaParametro extends JPanel {
 
     private JTable tablaTemas;
     private JTable tablaParametros;
+<<<<<<< HEAD
     private JTable tablaTemaParametros;  // Tabla para mostrar las relaciones
+=======
+    private JTable tablaTemaParametros;
+>>>>>>> feature/CRUDT-P
 
     private ControladorTemaParametro controladorTemaParametro;
     private ControladorTema controladorTema;
@@ -31,17 +35,25 @@ public class VentanaInsertarTemaParametro extends JPanel {
         controladorTema = new ControladorTema();
         controladorParametro = new ControladorParametro();
         setLayout(new BorderLayout());
+<<<<<<< HEAD
         setBackground(new Color(245, 245, 245));
 
         // Panel de Título
         JPanel panelTitulo = new JPanel();
         panelTitulo.setLayout(new GridLayout(1, 3, 20, 20));  // Aumento del espaciado horizontal entre títulos
         panelTitulo.setBackground(new Color(33, 150, 243));
+=======
+        setBackground(Color.WHITE);
+
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.setLayout(new GridLayout(1, 3, 10, 10));
+>>>>>>> feature/CRUDT-P
 
         JLabel lblTemas = new JLabel("Temas", JLabel.CENTER);
         JLabel lblParametros = new JLabel("Parámetros", JLabel.CENTER);
         JLabel lblRelaciones = new JLabel("Tema-Parametro", JLabel.CENTER);
 
+<<<<<<< HEAD
         lblTemas.setFont(new Font("Segoe UI", Font.BOLD, 25));
         lblParametros.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lblRelaciones.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -50,11 +62,14 @@ public class VentanaInsertarTemaParametro extends JPanel {
         lblParametros.setForeground(Color.WHITE);
         lblRelaciones.setForeground(Color.WHITE);
 
+=======
+>>>>>>> feature/CRUDT-P
         panelTitulo.add(lblTemas);
         panelTitulo.add(lblParametros);
         panelTitulo.add(lblRelaciones);
         add(panelTitulo, BorderLayout.NORTH);
 
+<<<<<<< HEAD
         // Panel de Tablas
         JPanel panelTablas = new JPanel();
         panelTablas.setLayout(new GridLayout(1, 3, 30, 30));  // Aumento del espaciado horizontal y vertical
@@ -74,11 +89,26 @@ public class VentanaInsertarTemaParametro extends JPanel {
         // Panel de Tema-Parametro (Para mostrar las relaciones)
         tablaTemaParametros = new JTable();
         customizeTable(tablaTemaParametros);
+=======
+        JPanel panelTablas = new JPanel();
+        panelTablas.setLayout(new GridLayout(1, 3, 10, 10));
+
+        tablaTemas = new JTable();
+        JScrollPane scrollTemas = new JScrollPane(tablaTemas);
+        panelTablas.add(scrollTemas);
+
+        tablaParametros = new JTable();
+        JScrollPane scrollParametros = new JScrollPane(tablaParametros);
+        panelTablas.add(scrollParametros);
+
+        tablaTemaParametros = new JTable();
+>>>>>>> feature/CRUDT-P
         JScrollPane scrollTemaParametros = new JScrollPane(tablaTemaParametros);
         panelTablas.add(scrollTemaParametros);
 
         add(panelTablas, BorderLayout.CENTER);
 
+<<<<<<< HEAD
         // Panel de Botones (Lado Derecho)
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
@@ -102,11 +132,27 @@ public class VentanaInsertarTemaParametro extends JPanel {
         panelBotones.add(Box.createVerticalStrut(60));  // Espaciado entre los botones
         panelBotones.add(btnAgregarTemaParametro);
         panelBotones.add(Box.createVerticalStrut(60));  // Espaciado entre los botones
+=======
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new GridLayout(4, 1, 5, 5));
+
+        JButton btnAgregarTema = new JButton("Agregar Tema");
+        JButton btnAgregarParametro = new JButton("Agregar Parámetro");
+        JButton btnAgregarTemaParametro = new JButton("Agregar Tema-Parametro");
+        JButton btnEliminarRelacion = new JButton("Eliminar Relación");
+
+        panelBotones.add(btnAgregarTema);
+        panelBotones.add(btnAgregarParametro);
+        panelBotones.add(btnAgregarTemaParametro);
+>>>>>>> feature/CRUDT-P
         panelBotones.add(btnEliminarRelacion);
 
         add(panelBotones, BorderLayout.EAST);
 
+<<<<<<< HEAD
         // Acciones de los botones
+=======
+>>>>>>> feature/CRUDT-P
         btnAgregarTema.addActionListener(e -> agregarTema());
         btnAgregarParametro.addActionListener(e -> agregarParametro());
         btnAgregarTemaParametro.addActionListener(e -> asociarTemaParametro());
@@ -115,6 +161,7 @@ public class VentanaInsertarTemaParametro extends JPanel {
         cargarDatos();
     }
 
+<<<<<<< HEAD
     private void customizeTable(JTable table) {
         table.setFillsViewportHeight(true);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -159,6 +206,8 @@ public class VentanaInsertarTemaParametro extends JPanel {
         return boton;
     }
 
+=======
+>>>>>>> feature/CRUDT-P
     public void cargarDatos() {
         temas = controladorTema.obtenerTodosLosTemas();
         parametros = controladorParametro.obtenerTodosLosParametros();
@@ -166,17 +215,41 @@ public class VentanaInsertarTemaParametro extends JPanel {
         mostrarTemasEnTabla(temas);
         mostrarParametrosEnTabla(parametros);
 
+<<<<<<< HEAD
         // Cargar las relaciones entre tema y parámetro
         mostrarRelacionesEnTabla();
+=======
+        // Llamando a BotonEditar con la instancia actual
+        
+        tablaTemas.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controladorTema, tablaTemas, "Tema", null, this));
+        tablaTemas.getColumn("Eliminar").setCellEditor(new BotonEliminar(controladorTema, tablaTemas, "Tema", null, this));
+
+        tablaParametros.getColumn("Eliminar").setCellRenderer(new BotonEliminar(controladorParametro, tablaParametros, "Parámetro", null, this));
+        tablaParametros.getColumn("Eliminar").setCellEditor(new BotonEliminar(controladorParametro, tablaParametros, "Parámetro", null, this));
+        
+        tablaTemas.getColumn("Editar").setCellRenderer(new BotonEditar(controladorTema, tablaTemas, "Tema", null, this));
+        tablaTemas.getColumn("Editar").setCellEditor(new BotonEditar(controladorTema, tablaTemas, "Tema", null, this));
+
+        tablaParametros.getColumn("Editar").setCellRenderer(new BotonEditar(controladorParametro, tablaParametros, "Parámetro", null, this));
+        tablaParametros.getColumn("Editar").setCellEditor(new BotonEditar(controladorParametro, tablaParametros, "Parámetro", null, this));
+>>>>>>> feature/CRUDT-P
     }
 
     private void mostrarTemasEnTabla(ArrayList<Tema> temas) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
+<<<<<<< HEAD
 
         for (Tema tema : temas) {
             modelo.addRow(new Object[]{tema.getId(), tema.getNombre()});
+=======
+        modelo.addColumn("Eliminar");
+        modelo.addColumn("Editar");
+
+        for (Tema tema : temas) {
+            modelo.addRow(new Object[] {tema.getId(), tema.getNombre()});
+>>>>>>> feature/CRUDT-P
         }
 
         tablaTemas.setModel(modelo);
@@ -186,14 +259,23 @@ public class VentanaInsertarTemaParametro extends JPanel {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
+<<<<<<< HEAD
 
         for (Parametro parametro : parametros) {
             modelo.addRow(new Object[]{parametro.getId(), parametro.getNombre()});
+=======
+        modelo.addColumn("Eliminar");
+        modelo.addColumn("Editar");
+
+        for (Parametro parametro : parametros) {
+            modelo.addRow(new Object[] {parametro.getId(), parametro.getNombre()});
+>>>>>>> feature/CRUDT-P
         }
 
         tablaParametros.setModel(modelo);
     }
 
+<<<<<<< HEAD
     // Mostrar las relaciones Tema-Parametro en la tabla
     private void mostrarRelacionesEnTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -210,6 +292,8 @@ public class VentanaInsertarTemaParametro extends JPanel {
         tablaTemaParametros.setModel(modelo);
     }
 
+=======
+>>>>>>> feature/CRUDT-P
     public void agregarTema() {
         String nombreTema = JOptionPane.showInputDialog("Ingrese el nombre del tema");
 
@@ -222,7 +306,11 @@ public class VentanaInsertarTemaParametro extends JPanel {
 
                 if (exito) {
                     JOptionPane.showMessageDialog(this, "Tema agregado correctamente");
+<<<<<<< HEAD
                     cargarDatos();  // Recargar los datos en la tabla
+=======
+                    cargarDatos();
+>>>>>>> feature/CRUDT-P
                 } else {
                     JOptionPane.showMessageDialog(this, "Error al agregar el tema");
                 }
@@ -272,6 +360,7 @@ public class VentanaInsertarTemaParametro extends JPanel {
         }
     }
 
+<<<<<<< HEAD
     public void eliminarRelacion() { 
         int filaRelacion = tablaTemaParametros.getSelectedRow();
 
@@ -279,6 +368,16 @@ public class VentanaInsertarTemaParametro extends JPanel {
             int idParametro = (int) tablaTemaParametros.getValueAt(filaRelacion, 1);
 
             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar esta relación?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+=======
+    public void eliminarRelacion() {
+        int filaRelacion = tablaTemaParametros.getSelectedRow();
+
+        if (filaRelacion != -1) {
+            int idTema = (int) tablaTemaParametros.getValueAt(filaRelacion, 0);
+            int idParametro = (int) tablaTemaParametros.getValueAt(filaRelacion, 1);
+
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar esta relación", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+>>>>>>> feature/CRUDT-P
 
             if (confirmacion == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(this, "Relación eliminada correctamente");

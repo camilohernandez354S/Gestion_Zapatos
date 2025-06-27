@@ -44,6 +44,29 @@ public class TemaDAO {
         return lista;
     }
     
+    public Tema obtenerTemaPorId(int id) {
+    	Tema tema = null;
+    	String sql = "SELECT * FROM tema WHERE id = ?";
+    	 try (
+    	            Connection conn = ConexionDB.obtenerConexion();
+    	            PreparedStatement stmt = conn.prepareStatement(sql);
+    	        ) {
+    	            stmt.setInt(1, id);
+    	            ResultSet rs = stmt.executeQuery();
+    	            
+    	            if (rs.next()) {
+    	                int idTema = rs.getInt("id");
+    	                String nombre = rs.getString("nombre");
+    	                tema = new Tema(idTema, nombre);
+    	            }
+    	            rs.close();
+    	        } catch (SQLException e) {
+    	            System.out.println("Error al obtener parámetro por ID: " + e.getMessage());
+    	        }
+
+    	        return tema;
+    	    }
+    
     public boolean insertarTema(Tema tema) {
     	String sql = """
     			INSERT INTO tema (nombre)

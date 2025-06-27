@@ -52,7 +52,7 @@ public class ControladorZapatillas {
      * @param id ID de la zapatilla que se desea eliminar.
      * @return true si la zapatilla fue eliminada correctamente, false si hubo un error.
      */
-    public boolean eliminarZapatilla(int id) {
+    public boolean eliminarZapatilla(int id) {  // Agregar depuración
         return ZapatillaDAO.eliminarZapatilla(id);
     }
 
